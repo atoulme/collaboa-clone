@@ -20,7 +20,7 @@
 </thead>
 <tbody>
 <% @tickets.each do |ticket| %>
-  <tr class="<%= cycle('odd', 'even') %>">
+  <tr>
     <td class="ticket-number"><%= link_to "##{ticket.id}", :action => 'show', :id => ticket.id %></td>
     <td class="ticket-summary"><%= link_to h(ticket.summary), :action => 'show', :id => ticket.id  %></td>
     <td class="ticket-status"><%= ticket.status.name %></td>
@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td colspan="9" id="ticket_<%=ticket.id %>" style="padding: 0 0 0 0">
-    </td>
+  </td>
   </tr>
 <% end %>
 </tbody>

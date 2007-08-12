@@ -7,12 +7,10 @@ class TicketsController < ApplicationController
   def index
     ensure_user_has_permission_to :view_tickets
     
-    @filter_conditions = {}
-    filter_by :priority, :milestone, :status, :component, :assigned_user
+    @filter_conditions = TicketFilterConditions.new(params)
+    @filter_conditions.filter_by :priority, :milestone, :status, :component, :assigned_user
     
-    options = {}
-    options[:conditions] = @filter_conditions unless @filter_conditions.empty?
-    @tickets = @project.tickets.find(:all, options)
+    @tickets = Ticket.find(:all, :conditions => @filter_conditions.to_sql_conditions)
     
     respond_to do |format|
       format.html # index.html.erb
@@ -133,23 +131,5 @@ class TicketsController < ApplicationController
     @components = @project.components
     @releases = @project.releases
     @users = @project.users
-  end
-  
-  def filter(filter_by)
-    filter_by = filter_by.to_s
-    if filter_values = (params[filter_by] || params[filter_by.pluralize])
-      column = "#{filter_by}_id"
-      if filter_values =~ /(^\d+$)/
-        @filter_conditions[column] = $1
-      else
-        @filter_conditions[column] = filter_values.split(',')
-      end
-    end
-  end
-  
-  def filter_by(*filters)
-    filters.each do |filter_by|
-      filter filter_by
-    end
   end
 end

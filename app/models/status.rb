@@ -12,6 +12,6 @@ class Status < TicketAttribute
   end
   
   def self.unresolved_status_ids
-    resolved_statuses.map(&:id)
+    unresolved_statuses.map(&:id)
   end
 end
