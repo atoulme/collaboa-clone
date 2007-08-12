@@ -132,6 +132,7 @@ var SortableTable = {
     },
 	_sort : function(e) {
 		SortableTable.sort(null, this);
+		return false;
 	},
 	_sortScroll : function(e) {	
 		var hdiv = $(this).up('div.scroll-table-head');
@@ -404,8 +405,4 @@ var SortableTable = {
 	}
 }
 
-if(FastInit) {
-	FastInit.addOnLoad(SortableTable.load);
-} else {
-	Event.observe(window, 'load', SortableTable.load);
-}
+Event.observe(window, 'load', SortableTable.load);

@@ -308,13 +308,13 @@ div.events_odd { background-color: #f1f1f1; clear: both;display: table; width: 1
 
 #content table.listing td { padding: 2px; } 
 
-table.listing thead th a.asc { 
+table.listing thead th.asc a { 
   background-image: url(/images/sort_asc.png); 
   background-repeat: no-repeat;
   padding-right: 10px;
   background-position: 100% 50%;
 }
-table.listing thead th a.desc { 
+table.listing thead th.desc a { 
   background-image: url(/images/sort_desc.png); 
   background-repeat: no-repeat;
   padding-right: 10px;

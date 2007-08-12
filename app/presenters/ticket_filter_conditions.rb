@@ -45,6 +45,24 @@ class TicketFilterConditions
     return sql_conditions
   end
   
+  # Converts the given conditions into a Hash, that can be used with *_path route helper.
+  def to_query
+    query = {}
+    
+    # Do a deep clone, so we don't affect the query for other links
+    conditions = @conditions.clone
+    conditions.each_key do |key|
+      conditions[key] = conditions[key].clone
+    end
+    
+    yield conditions if block_given?
+    
+    conditions.each do |attribute, values|
+      query[attribute] = values.uniq.join(',')
+    end
+    return query
+  end
+  
   # Converts the given conditions into a Hash, that can be used with *_path route helper. It also adds the given
   # attribute to the list of conditions.
   def to_query_with(attribute)
@@ -75,23 +93,5 @@ class TicketFilterConditions
   # Converts a TicketAttribute to a name used in the @conditions hash.
   def attribute_name_for(attribute)
     attribute.is_a?(User) ? :assigned_user : attribute.class.name.downcase.to_sym
-  end
-  
-  # Converts the given conditions into a Hash, that can be used with *_path route helper.
-  def to_query
-    query = {}
-    
-    # Do a deep clone, so we don't affect the query for other links
-    conditions = @conditions.clone
-    conditions.each_key do |key|
-      conditions[key] = conditions[key].clone
-    end
-    
-    yield conditions if block_given?
-    
-    conditions.each do |attribute, values|
-      query[attribute] = values.uniq.join(',')
-    end
-    return query
   end
 end

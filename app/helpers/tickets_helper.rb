@@ -9,10 +9,11 @@ module TicketsHelper
       link = link_to_unless(@filter_conditions.include?(attribute), attribute.name, project_tickets_path(:project_id => @project, name.downcase => attribute.id))
       html << link
       
+      other_url_options = {:project_id => @project, :sort_by => params[:sort_by], :order => params[:order]}
       if @filter_conditions.include?(attribute)
-        link = link_to('[-]', project_tickets_path(@filter_conditions.to_query_without(attribute).merge(:project_id => @project)))
+        link = link_to('[-]', project_tickets_path(@filter_conditions.to_query_without(attribute).merge(other_url_options)))
       else
-        link = link_to('[+]', project_tickets_path(@filter_conditions.to_query_with(attribute).merge(:project_id => @project)))
+        link = link_to('[+]', project_tickets_path(@filter_conditions.to_query_with(attribute).merge(other_url_options)))
       end
       
       link.gsub!('%2C', ',')
@@ -41,5 +42,24 @@ module TicketsHelper
       html << text_field(instance_variable_name, 'public_author_text')
     end
     html
+  end
+  
+  # Display a <th> with links and class names used for sorting.
+  def sort_header(header, options = {})
+    sort_key = options.delete(:sort_key) || header.downcase
+    
+    # If the current header is already sorted ascending, we want to display descending next time.
+    if (params[:sort_by] == sort_key) && (params[:order] == 'ASC')
+      order = 'DESC'
+    else
+      order = 'ASC'
+    end
+    
+    # Add class to display sorted arrow if the current header is sorted
+    options[:class] << " #{params[:order].downcase}" if (params[:sort_by] == sort_key)
+    
+    # Display a link to order the table with the current filter selected.
+    link = link_to(header, @filter_conditions.to_query.merge(:project_id => @project, :sort_by => sort_key, :order => order))
+    content_tag(:th, link, options)
   end
 end

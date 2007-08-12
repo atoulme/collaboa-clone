@@ -7,20 +7,20 @@
 <table class="listing" id="tickets"> 
 <thead>
   <tr>
-    <th class="number">Ticket</th>
-    <th class="text">Summary</th>
-    <th class="text">Status</th>
-    <th class="text">Prioriy</th>
-    <th class="text">Component</th>
-    <th class="text">Milestone</th>
-    <th class="text">Release</th>
-    <th class="date">Created</th>
-    <th class="text">Assigned</th>
+    <%= sort_header('Ticket', :sort_key => 'id', :class => 'number') %>
+    <%= sort_header('Summary', :class => 'text ticket-summary') %>
+    <%= sort_header('Status', :class => 'text') %>
+    <%= sort_header('Priority', :class => 'text') %>
+    <%= sort_header('Component', :class => 'text') %>
+    <%= sort_header('Milestone', :class => 'text') %>
+    <%= sort_header('Release', :class => 'text') %>
+    <%= sort_header('Created', :sork_key => 'created_at', :class => 'text') %>
+    <%= sort_header('Assigned', :class => 'text') %>
   </tr>
 </thead>
 <tbody>
 <% @tickets.each do |ticket| %>
-  <tr>
+  <tr class="<%= cycle('odd', 'even') %>">
     <td class="ticket-number"><%= link_to "##{ticket.id}", :action => 'show', :id => ticket.id %></td>
     <td class="ticket-summary"><%= link_to h(ticket.summary), :action => 'show', :id => ticket.id  %></td>
     <td class="ticket-status"><%= ticket.status.name %></td>
@@ -30,10 +30,6 @@
     <td class="ticket-release"><%= ticket.release.name unless ticket.release.nil? %></td>
     <td class="ticket-created"><%= ticket.created_at.strftime("%d/%m/%Y") %></td>
 		<td class="ticket-assigned-to"><%= ticket.assigned_user.login unless ticket.assigned_user.nil? %></td>
-  </tr>
-  <tr>
-    <td colspan="9" id="ticket_<%=ticket.id %>" style="padding: 0 0 0 0">
-  </td>
   </tr>
 <% end %>
 </tbody>

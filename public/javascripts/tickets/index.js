@@ -10,7 +10,9 @@ Event.onReady(function() {
   });
   
   SortableTable.init('tickets', {rowEvenClass : 'even',
-                               rowOddClass : 'odd'})
+                                 rowOddClass : 'odd',
+                                 ascendingClass : 'asc',
+                                 descendingClass : 'desc'})
 });
 
 

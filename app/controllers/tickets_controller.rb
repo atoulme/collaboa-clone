@@ -8,9 +8,19 @@ class TicketsController < ApplicationController
     ensure_user_has_permission_to :view_tickets
     
     @filter_conditions = TicketFilterConditions.new(params)
-    @filter_conditions.filter_by :priority, :milestone, :status, :component, :assigned_user
+    @filter_conditions.filter_by :priority, :milestone, :status, :component, :assigned_user, :release
     
-    @tickets = Ticket.find(:all, :conditions => @filter_conditions.to_sql_conditions)
+    # Set a default sort key. And only use columns in this array to prevent SQL injection.
+    params[:sort_by] ||= 'id'
+    sort_by = ['id', 'summary', 'priority_id', 'milestone_id', 'status_id', 'component_id', 'assigned_user_id', 'release_id', 'created_at'].select do |sort|
+      sort == "#{params[:sort_by]}_id" || sort == params[:sort_by]
+    end
+    
+    # Set a default order. And only use orders in the array to prevent SQL injection.
+    params[:order] ||= 'ASC'
+    order = ['ASC', 'DESC'].select {|order| order == params[:order].upcase}
+    
+    @tickets = Ticket.find(:all, :conditions => @filter_conditions.to_sql_conditions, :order => "#{sort_by} #{order}")
     
     respond_to do |format|
       format.html # index.html.erb
