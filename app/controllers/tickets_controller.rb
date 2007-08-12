@@ -23,7 +23,9 @@ class TicketsController < ApplicationController
     @tickets = Ticket.find(:all, :conditions => @filter_conditions.to_sql_conditions, :order => "#{sort_by} #{order}")
     
     respond_to do |format|
-      format.html # index.html.erb
+      format.html do
+        @resolved_status_ids = Status.resolved_status_ids
+      end
       format.xml  { render :xml => @tickets }
     end
   end
