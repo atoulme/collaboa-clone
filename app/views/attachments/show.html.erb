@@ -1,0 +1,36 @@
+<% page_title @attachment.filename %>
+<% ticket = @attachment.ticket_comment.ticket %>
+<div id="content">
+
+<div class="breadcrumbs">  
+  <ul>
+    <li><%= link_to 'Tickets', project_tickets_path(@project) %></li>
+    <li>&#187; <%= link_to "Ticket ##{ticket.id}", project_ticket_path(@project, ticket) %></li>
+    <li>&#187; <%= @attachment.filename %></li>
+  </ul>
+</div>
+
+<h2><%= @attachment.filename %></h2>
+
+<div id="attachment-properties">
+  <dl>
+    <dt>Filename:</dt>
+    <dd><%= @attachment.filename %></dd>
+  </dl>
+  <dl>
+    <dt>Size:</dt> 
+    <dd><%= number_to_human_size(@attachment.size) %></dd>
+  </dl>
+  <dl>
+    <dt>Uploaded By:</dt>
+    <dd><%= @attachment.ticket_comment.author_text %></dd>
+  </dl>
+  <dl>
+    <dt>Uploaded At:</dt> 
+    <dd><%= @attachment.ticket_comment.created_at %></dd>
+  </dl>
+</div>
+
+<%= make_line_nums(File.read(File.join(RAILS_ROOT, 'public', @attachment.public_filename)), 'attachment-content') %>
+
+</div>

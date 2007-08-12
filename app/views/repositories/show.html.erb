@@ -1,0 +1,75 @@
+<%# page_title 'Browsing repository' %>
+
+<div id="content">
+
+<div class="breadcrumbs"><%#= path_breadcrumbs(params[:path]) %></div>
+
+<%# #TODO:  styyyyyle me: %>
+<div id="filter-selector">
+  <dl>
+    <dt>Revision:</dt>
+    <dd><%##= link_to @current_entry.revision, :controller => 'repository', :action => 'show_changeset', :revision => @current_entry.revision, :project_name => @project %></dd>
+  </dl>
+  <dl>
+    <dt>Log:</dt> 
+    <dd><%##= format_and_make_links(@current_entry.log) %></dd>
+  </dl>
+  <dl>
+    <dt>Author:</dt>
+    <dd><%##= @current_entry.author %></dd>
+  </dl>
+  <dl>
+    <dt>Date:</dt> 
+    <dd><%##= @current_entry.date %></dd>
+  </dl>
+  <%## unless @current_entry.proplist.empty? %>
+  <dl>
+    <dt>Properties:</dt> 
+  <%# @current_entry.proplist.each do |name, value| %>
+    <dd>Property <%#= name %> is set <%#= value.empty? ? '' : "to #{value}" %></dd>
+  <%# end %>
+  </dl>
+  <%# end %>
+</div>
+
+<table id="browser" class="listing">
+ <thead>
+  <tr>
+    <th class="name">Name</th>
+    <th class="age">Age</th>
+    <th class="size">Size</th>
+    <th class="rev">Rev.</th>
+    <th class="msg">Last commit message</th>
+  </tr>
+ </thead>
+ <tbody>
+  <%# unless params[:path].empty? %>
+  <tr class="parent">
+  <%# paths = params[:path]; paths.pop %>
+    <td class="name parent"><%#= link_to '..', :path => paths %></td>
+    <td class="age"></td>
+    <td class="size"></td>
+    <td class="rev"></td>
+    <td class="msg"></td>
+  </tr>
+  <%# end %>
+  <%# @node_entries.cycle do |entry, css| %>
+  
+  <tr class="<%#= css %>">
+    <td class="name <%#= entry.type %>"><%#= link_to entry.name, url_for_svn_path(entry.path) %></td>
+    <td class="age"><%#= distance_of_time_in_words(entry.date, Time.now) %></td>
+    <td class="size"><%#= entry.type == 'File' ? number_to_human_size(entry.size) : "#{entry.entries.size} files"  %></td>
+    <td class="rev"><%#= link_to entry.revision, :controller => 'repository', :action => 'show_changeset', :revision => entry.revision, :project_name => params[:project_name] %></td>
+    <td class="msg">[<%#= entry.author %>] <%#= truncate(h(entry.log), 50) %> </td>
+  </tr>
+  <%# end %>
+ </tbody>
+</table>
+
+<!--<div class="rev-chooser">
+  <%# form_tag({:action => 'browse', :path => params[:path]}, :method => 'get') do %>
+    <p>Revision: <input id="rev" name="rev" type="text" value="<%#= @rev %>" /></p>
+  <%# end %>
+</div>-->
+
+</div>

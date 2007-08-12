@@ -1,0 +1,704 @@
+/**
+ * Global whitespace reset
+ */
+h1, h2, h3, h4, h5, h6, p, form, 
+label,  fieldset, address, fieldset { margin:0; padding:0; }
+/* ul, ol, dl, li, dd, blockquote, pre, */
+
+
+/**
+ * Main elements
+ */
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-size: 12px;
+  font-family: 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+}
+
+#container {
+  background: #fff;
+  margin:0;
+}
+
+#header {
+  background: #666;
+  margin-bottom: 20px;
+  /*border: none;*/
+}
+
+img {
+  border: 0;
+/*  display: block; */
+}
+
+#logo img { margin: 15px 20px 0 10px;}
+#logo a:hover{ background:transparent; }
+
+#title { position: absolute; right: 10px; top: 30px; font-size: 1.2em; font-weight: bold; color: white; }
+
+#footer {
+  margin-top: 50px;
+  padding: 10px;
+  border-top: 1px solid #eee;
+}
+#footer p {
+  font-size: 10px;
+}
+#footer .rss-links {
+  margin-left: 30px;
+}
+#footer #collaboa-power {
+  float: right;
+  margin-right: 30px;
+/*  width: 150px;*/
+}
+
+/**
+ * General typegraphy
+ */
+a { color: #930; text-decoration: none; padding: 1px;}
+a:hover { 
+  color: #fff; 
+  background: #930;
+}
+
+h1 {
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+  margin: 15px 0 10px 0;
+}
+
+h2 {
+  font-size: 18px;
+  color: #000;
+  /*border-bottom: 1px solid #ccc;*/
+  margin-bottom: 10px;
+  margin-top: 20px;
+  font-weight: normal;
+}
+
+
+h3 {
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+h1, h2, h3, h4, h5, h6, legend {font-family: Helvetica, Arial, sans-serif; }
+
+p, td, th, li {
+  font-size: 13px;
+  color: #000;
+  margin-bottom: 5px;
+}
+#header p, #header p small {color: #ccc;}
+#header a { color: #ccc; }
+
+blockquote {
+  /*background: #f5f5f5;*/
+  margin: 5px;
+  padding-left:  5px;
+  margin: 5px 5px 5px 10px;
+  border-left: 2px solid #aaa;
+}
+blockquote p {color: #555; margin-bottom: 5px;}
+
+code, pre {
+  font: 12px/14px  "Courier New", Courier, monaco, monospace;
+  color: #000;
+}
+pre {
+  padding: 10px 0 10px 10px;
+}
+
+small {
+  color: #666;
+}
+
+dd ul {
+  padding-left: 0;
+}
+
+/**
+ * Forms
+ */
+ 
+fieldset {
+	display: block;
+	width: 96%;
+	margin: 20px 0 5px 0;
+	padding: 0 10px 10px 10px;
+	border: 1px solid #ccc;
+	background: #f6f6f6;
+}
+
+fieldset legend {
+  padding: 2px 10px 2px 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin-left: -11px;
+}
+
+input, textarea {
+	display: block;
+	width: 50%;
+	margin-bottom: 10px;
+}
+textarea {width: 75%;}
+textarea.smalltextarea, textarea.largetextarea, textarea.bigtextarea {width: 500px;}
+textarea.largetextarea {height:350px;}
+textarea.smalltextarea {height: 150px;}
+textarea.bigtextarea {height: 450px; }
+
+.checkbox {
+  display: inline;
+  width: auto;
+}
+
+legend {
+    font: 13px 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+    color: #000;
+    /*font-weight: bold;*/
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+	/*font-weight: bold;*/
+  font: 12px 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+label.first {
+	padding-top: 10px;
+}
+
+select {
+	display: inline;
+}
+
+.submit {
+    margin-top: 20px;
+    width: auto;
+}
+
+.smallsubmit {
+    margin: 3px 0 0 0;
+    width: auto;
+}
+
+form.button-to input {
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.rev-chooser input { width: 50px; display: inline; }
+.rev-chooser p {margin: 10px 0; font-size: 11px; color: #aaa; float:right;}
+
+/**
+ * main menu
+ */
+ 
+#menu {
+  margin: 10px 0;
+  background: #ffe;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+#menu ul {
+  margin: 0; padding: 0;
+  list-style: none;
+  height: 24px;
+}
+#menu li {
+  display: inline;
+}
+#menu li.right { float:right;  }
+
+#menu a {
+  float: left;
+  padding: 0 10px; 
+  margin: 0; 
+  font-size: 12px;
+  line-height: 200%;
+  color: #930; 
+  text-decoration: none;
+  border-bottom: none;
+}
+#menu a:hover {
+  color: #fff;
+  background-color: #930;
+}
+
+/**
+ * Main
+ */
+ 
+#content {
+  margin: 0 20px 0 20px;
+  padding: 0 20px 0 20px;
+  /*border-left: 1px solid #d9d9d9;*/
+  /*max-width: 600px;*/
+}
+
+.pagination {
+  text-align: center;
+  margin: 10px 0;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.breadcrumbs ul {
+  margin: -10px 0 5px 0; 
+  padding:0; 
+}
+.breadcrumbs ul li {
+  display: inline; 
+  font-size: 11px; 
+  color: #333; 
+  margin: 0; 
+  padding:0;
+}
+
+.actions p {
+  font-size: 11px;
+  margin:0;
+  padding:0;
+}
+.actions p a {
+  display: block;
+  padding: 3px;
+}
+.actions {
+  background: #ffd;
+  margin: 0;
+}
+
+/**
+ * General table listings
+ */
+ 
+#content table.listing {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+table.listing thead { background: #ddd; }
+table.listing th {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 5px;
+  vertical-align: bottom;
+  text-align: center; 
+}
+table.listing th { vertical-align: top; }
+table.listing td { vertical-align: middle; padding: 0 2px 0 2px;}
+
+table.listing tr.even, table#browser tr.parent { background-color: #fbfbfb; }
+table.listing tr.odd { background-color: #f1f1f1; }
+
+div.events_even { background-color: #fbfbfb; clear: both;display: table; width: 100% }
+div.events_odd { background-color: #f1f1f1; clear: both;display: table; width: 100% }
+
+
+#content table.listing td { padding: 2px; } 
+
+table.listing thead th a.asc { 
+  background-image: url(/images/sort_asc.png); 
+  background-repeat: no-repeat;
+  padding-right: 10px;
+  background-position: 100% 50%;
+}
+table.listing thead th a.desc { 
+  background-image: url(/images/sort_desc.png); 
+  background-repeat: no-repeat;
+  padding-right: 10px;
+  background-position: 100% 50%;
+}
+
+
+/**
+ * Milestones
+ */
+
+div.milestone-progress { 
+  border: 1px solid #aaa; 
+  width: 75%; 
+  height: 25px; 
+  margin-top: 20px;
+  background: #ddd;
+}
+div.milestone-progress div.percent-completed { background: #3c0; height: 100%; }
+.milestone-details {
+  font-size: 12px;
+  color: #555;
+  margin-top: 5px;
+  width: 75%;
+  text-align: center;
+}
+#milestone-info p { margin: 20px 0 -10px 20px; font-size: 11px; color: #666; }
+
+/**
+ * Tickets
+ */ 
+
+ 
+table#tickets tr td { vertical-align: top;}
+table#tickets tr td.ticket-status, 
+    table#tickets tr td.ticket-priority, 
+    table#tickets tr td.ticket-project, 
+    table#tickets tr td.ticket-component, 
+    table#tickets tr td.ticket-milestone, 
+    table#tickets tr td.ticket-release, 
+    table#tickets tr td.ticket-created,
+    table#tickets tr td.ticket-assigned-to,
+    table#user_list tr td { 
+  font-size: 11px;
+  text-align: center;
+  vertical-align: top;
+}
+
+th.forwardSort {
+  background: url(/images/sort_asc.png) no-repeat right center;
+}
+
+th.reverseSort {
+  background: url(/images/sort_desc.png) no-repeat right center;
+}
+
+table.listing tr th.ticket-number, 
+  table.listing tr th.ticket-summary {
+  text-align: left;
+}
+
+table.listing tr td.ticket-number {
+   width: 3em;
+}
+
+table.listing tr td.ticket-status {
+   width: 5em;
+}
+
+table.listing tr td.ticket-priority {
+   width: 7em;
+}
+
+table.listing tr td.ticket-project {
+   width: 7em;
+}
+table.listing tr td.ticket-component {
+   width: 7em;
+}
+
+table.listing tr td.ticket-milestone {
+   width: 7em;
+}
+
+table.listing tr td.ticket-release {
+   width: 5em;
+}
+
+table.listing tr td.ticket-created {
+   width: 7em;
+}
+
+table.listing tr td.ticket-assigned-to {
+   width: 6em;
+}
+
+
+#ticket { 
+  background: #ffc;
+  border: 1px solid #aaa;
+  padding: 10px;
+}
+#ticket h1 {border: none; margin-bottom: 10px;}
+#ticket h2 {margin-top: 10px;}
+#ticket h1 span {
+  font-size: 12px;
+  font-weight: normal;
+  color: #650;
+  float: right;
+}
+
+#ticket_form .note {
+  font-size: 80%;
+}
+
+#ticket_form .half_width {
+  float: left;
+  width: 45%;
+  margin-right: 4%;
+}
+
+#ticket_form .half_width input, textarea { width: 100%; }
+
+table#ticket-details {
+  margin: 20px auto 20px auto;
+  width: 90%;
+}
+table#ticket-details {border-collapse:collapse}
+table#ticket-details tr td { border-bottom: 1px solid #eea; font-size: 11px;}
+table#ticket-details tr td a { /*display: block; height: 100%;*/}
+table#ticket-details tr td.info {width: 100px; color: #650;}
+
+fieldset table { border-collapse: collapse; }
+fieldset table tr td { padding-left: 5px; padding-right: 5px; padding-top: 3px; padding-bottom: 3px;}
+fieldset table tr td.set-type { background: #ddd; }
+
+#ticket-changes { margin: 0 20px 10px 20px; }
+#ticket-changes h4 { 
+  font-size: 12px; 
+  font-weight:normal; 
+  color: #888; 
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+#ticket-changes ul {
+  list-style: disc inside;
+  margin: 0 0 0 20px;
+  padding: 0 0 0 10px;
+}
+/*#ticket-changes li { color: #333; }*/
+#ticket-changes p {
+  margin: 10px 0 0 30px;
+}
+#ticket-changes ul li em { font-style: normal; background: #ffd; padding: 1px; }
+
+#ticket-change-comment ul { margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;}
+#ticket-change-comment ul li {margin: 0;}
+
+#filter-selector { font-size: 11px; background: #ffe; margin: 0; padding-bottom: 10px; }
+#filter-selector dl { margin: 0; padding: 5px 0 0 10px; clear: left; }
+#filter-selector dl dt, #filter-selector dl dd { display:inline; margin: 0; }
+#filter-selector dl dt { float: left; width: 70px;  }
+#filter-selector dl dd { margin-right: 5px; color: #999; }
+
+.ticket-next-prev { 
+  float: right;
+  clear: right;
+}
+
+/**
+ * Repository browser
+ */
+#content table#browser tr td {
+  white-space: nowrap;
+}
+#content table#browser td.name {width: 75%;}
+#content table#browser td.rev {width: 5%; }
+#content table#browser td.age {width: 5%; }
+#content table#browser td.msg {width: 15%; }
+
+#content table#browser td.name a {
+  padding-left:25px;
+  background-position: 4px 50%;
+  background-repeat: no-repeat;
+}
+#content table#browser td.rev, #content table#browser td.age, #content table#browser td.size { 
+  font-size: 11px; text-align:center;
+}
+#content table#browser td.msg { font-size: 9px; color: #666; }
+#content table#browser td.File a { background-image: url(/images/icon_file.gif); }
+#content table#browser td.Dir a { background-image: url(/images/icon_folder.gif); }
+#content table#browser td.parent a { background-image: url(/images/icon_up.gif); }
+
+#download-alternate {margin-top: 10px;}
+#download-alternate h4, #download-alternate p { text-align: center; }
+#download-alternate h4 {  font-weight: bold; font-size: 11px;}
+#download-alternate p { color: #ccc; }
+
+#html-preview {width: 100%; margin-top: 20px; padding-bottom: 5px;}
+#html-preview table {
+  border-collapse: collapse; 
+  /*padding: 2px;*/
+  color: #000;
+}
+
+/**
+ * Common code display
+ */
+
+table tr td.line-numbers {
+  text-align: right;
+  vertical-align: top;
+  background: #eee;
+  color: #555;
+  font-size: 10px;  
+  padding: 2px;
+  width: 35px;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
+}
+table tr td.code {
+  width: 95%;
+  padding-left: 10px;
+  white-space: pre;
+  background: #fff;
+  font: 100%/110%  "Courier New", Courier, monaco, monospace;
+}
+
+/**
+ * Code Diff tables
+ */
+
+table.codediff {
+  border: 1px solid #ccc;
+  width: 100%;
+  border-collapse: collapse;
+}
+table.codediff td.line-num-cut { 
+  background: #ccc; 
+  border-top: 1px dashed #ccc; 
+  border-bottom: 1px dashed #ccc; 
+}
+table.codediff thead td.line-numbers, table.codediff thead { background: #ddd; }
+table.codediff td.code { padding-left: 2px; }
+table.codediff td.cut-line { 
+  background: #eee; 
+  border-top: 1px dashed #aaa; 
+  border-bottom: 1px dashed #aaa; 
+}
+
+del { background: #fbb; text-decoration: none; }
+ins { background: #afa; text-decoration: none; }
+table.codediff td.del { background: #fdd; }
+table.codediff td.ins { background: #dfd; }
+
+div.ticketdiff>ins, div.ticketdiff>del { display: block; }
+
+div.ticketdiff {
+   border-style: solid;
+   border-width: 1px;
+   margin-left: 30px;
+   margin-right: 30px;
+   padding: 3px
+}
+
+/**
+ * Changesets
+ */
+
+p.log {
+  background-color: #ffc;
+  border: 1px solid #ccc;
+  padding: 10px; 
+  margin-bottom: 10px;
+}
+
+div.log-small {
+  /*background-color: #eee;*/
+  margin: 5px 5px 5px 20px;
+  width: 75%;
+}
+div.log-small p { 
+  font: 10px 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+  color: #666; 
+  padding: 5px;
+}
+
+ul.changes  {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*ul.changes li.A, ul.changes li.CP strong { color: #090 }
+ul.changes li.M, ul.changes li.MV strong { color: #f90 }
+ul.changes li.D strong { color: #f30 }*/
+ul.changes li.change-name { color: #666; }
+
+/**
+ * Search
+ */
+.search-result h1         {  }
+.search-result p          {  }
+.search-result p  strong.highlight  { font-weight: normal; background: #ff9; }
+
+
+#attachment-properties { font-size: 11px; background: #ffe; margin: 0; padding-bottom: 10px; }
+#attachment-properties dl { margin: 0; padding: 5px 0 0 10px; clear: left; }
+#attachment-properties dl dt, #filter-selector dl dd { display:inline; margin: 0; }
+#attachment-properties dl dt { float: left; width: 80px;  }
+#attachment-properties dl dd { margin-right: 5px; color: #999; }
+#attachment-content {overflow: auto;}
+
+/**
+ * Admin Users
+ */
+
+input#user_view_changesets, input#user_view_code, input#user_view_tickets, input#user_create_tickets, input#user_admin, input#user_view_milestones {
+  margin: .5em .5em;
+  vertical-align: middle;
+}
+
+input[type~=hidden] {
+  display: none;
+}
+
+/**
+ * Error display
+ */
+
+.errorExplanation {
+    margin-bottom: 20px;
+    font-size: 10px;
+}
+.errorExplanation h3, .errorExplanation h2 {
+    background: #e33;
+    padding: 3px;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #fff;
+}
+.errorExplanation ul {
+    background: white;
+    list-style: square;
+    border-bottom: 2px solid #e33;
+    margin: 0 0 5px 0;
+    padding: 5px 0 5px 20px;
+    
+}
+.errorExplanation li {
+    font: 12px 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+    color: #000;
+    margin:0;
+    margin-left: 0;
+    padding: 0;  
+}
+.errorExplanation p {
+    font: 11px 'Lucida Grande', Geneva, Verdana, Arial, Helvetica, sans-serif;
+    color: #000;
+    background: #eee;
+/*    border-bottom: 1px solid #e33;*/
+    margin: 0;
+    padding: 5px;    
+}
+.error, .fieldWithErrors {
+    /*background: #e33;*/
+    border-right: 5px solid #e33;
+}
+
+
+/* http://positioniseverything.net/easyclearing */
+
+.clearfix:after {
+		content: ""; 
+		display: block; 
+		height: 0; 
+		clear: both; 
+		visibility: hidden;
+}
+
+.clearfix {display: inline-table;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */

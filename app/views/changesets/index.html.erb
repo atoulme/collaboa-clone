@@ -1,0 +1,17 @@
+<% page_title 'Showing changesets' %>
+
+<div id="content">
+
+<% @changesets.each do |changeset| %>
+  <h2><%= link_to "Changeset #{changeset.revision}", project_changeset_path(@project, changeset) %>:</h2>
+  <ul class="changes">
+    <li><strong>Author:</strong> <%= changeset.author %></li>
+    <li><strong>Date:</strong> <%= changeset.revised_at.strftime('%a %b %d %H:%M %Y') %></li>
+  </ul>
+  <div class="log-small"><%= format_and_make_links(changeset.log) %></div>
+<% end %>
+
+<div class="pagination">
+    <%= will_paginate(@changesets) %>
+  </div>
+</div>

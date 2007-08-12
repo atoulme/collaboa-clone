@@ -1,0 +1,5 @@
+127.0.0.1 localhost:3000 - [31/Jul/2007:22:38:22 +0100] "GET / HTTP/1.1" 200 2133 "-" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/419.2.1 (KHTML, like Gecko) Safari/419.3"
+127.0.0.1 localhost:3000 - [31/Jul/2007:22:38:23 +0100] "GET /javascripts/prototype.js HTTP/1.1" 200 16311 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/419.2.1 (KHTML, like Gecko) Safari/419.3"
+127.0.0.1 localhost:3000 - [31/Jul/2007:22:38:23 +0100] "GET /favicon.ico HTTP/1.1" 200 0 "-" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/419.2.1 (KHTML, like Gecko) Safari/419.3"
+127.0.0.1 localhost:3000 - [31/Jul/2007:22:38:23 +0100] "GET /javascripts/effects.js HTTP/1.1" 200 8963 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/419.2.1 (KHTML, like Gecko) Safari/419.3"
+127.0.0.1 localhost:3000 - [31/Jul/2007:22:38:23 +0100] "GET /images/rails.png HTTP/1.1" 200 1787 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/419.2.1 (KHTML, like Gecko) Safari/419.3"

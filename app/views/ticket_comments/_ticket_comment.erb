@@ -1,0 +1,22 @@
+<h4>Modified by <%= format_author(ticket_comment.author_text) %> <%= ticket_comment.created_at.strftime('%a, %B %d %Y - %H:%M:%S %Z') %>
+<%# if @controller.current_user.admin %>
+<% if false %>
+  - <%= link_to("delete", {:project_name => @ticket.project, :action => "delete_change", :id => change}, {:method => 'post', :confirm => "Are you sure you want to delete this Ticket Change?"}) %>
+<% end %>
+</h4>
+
+<% if ticket_comment.attachments.any? || ticket_comment.changes.any? %>
+  <ul>
+    <% ticket_comment.attachments.each do |attachment| %>
+      <li><strong>Attachment</strong> added: <%= link_to(attachment.filename, project_ticket_attachment_path(@project, @ticket, attachment)) %></li>
+    <% end %>
+
+    <% ticket_comment.changes.each do |change| %>
+      <li><strong><%= change.attribute_name.capitalize %></strong> changed from <em><%= change.old_value %></em> to <em><%= change.new_value %></em></li>
+    <% end %>
+  </ul>
+<% end %>
+  
+<% unless ticket_comment.content.blank?  %>
+  <div id="ticket-change-comment"><p><%= format_and_make_links(ticket_comment.content) %></p></div>
+<% end %>

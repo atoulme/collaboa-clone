@@ -1,0 +1,23 @@
+<% page_title 'Search' %>
+
+<div id="content">
+  <h1>Search</h1>
+  
+  <% form_tag(project_search_path(@project), :method => 'get') do %>
+    <label>Search: <input name="q" type="text" value="<%= params[:q] %>" /></label>
+    
+    <% if current_user.has_permission_to?(:view_tickets, :for => @project) %>
+      <p>
+        <label class="checkbox">in tickets? <%= check_box_tag 'tickets', 1, (params[:tickets] || 1), {:class => 'checkbox'} %></label>
+      </p>
+    <% end %>
+    
+    <% if current_user.has_permission_to?(:view_changesets, :for => @project) %>
+      <p>
+        <label class="checkbox">in changesets? <%= check_box_tag 'changesets', 1, params[:changesets], {:class => 'checkbox'} %></label>
+      </p>
+    <% end %>
+    
+    <input type="submit" value="Search" class="smallsubmit" />
+  <% end %>
+</div>

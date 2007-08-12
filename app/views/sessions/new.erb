@@ -1,0 +1,22 @@
+<% @page_title = 'Login' %>
+
+<div id="content">
+
+<h1>Please login</h1>
+
+<% form_tag sessions_path do %>
+
+<div title="Account login" id="loginform" class="form">
+    <label for="login">Login:
+    <%= text_field_tag 'login' %></label>
+
+    <label for="password">Password:
+    <%= password_field_tag 'password' %></label>
+
+    <%= submit_tag 'Login &#187;', :class => 'primary' %>
+
+</div>
+
+<% end %>
+</div>
+

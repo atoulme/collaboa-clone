@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="all" />
+<meta http-equiv="imagetoolbar" content="false" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<title><%= "#{yield :page_title} - " if yield :page_title %>Collaboa</title>
+
+<%= stylesheet_link_tag 'screen' %>
+<%= javascript_include_tag :defaults %>
+<%= javascript_include_tag 'lowpro.js' %>
+<%= javascript_include_tag 'tablesort.js' %>
+<%= include_javascripts_for_controller %>
+</head>
+<body>
+<div id="container">
+<div id="header">
+    <div style="float:right;width:300px;color:white;text-align: right;padding:.5em;">
+        
+        <% if logged_in? %>
+          <p><small>
+            Logged in as <%= current_user.login %> (<%= link_to 'Logout', logout_path %>) 
+          </small></p>
+        <% else %>
+          <p><small>
+            <%= link_to 'Login', login_path %>
+          </small></p>
+        <% end %>
+        
+    </div>
+    <div id="logo"><%= link_to(image_tag("logo.png", :alt => "Collaboa Home"), home_url) %></div>
+    <div id="title"><%= @project.name if @project %></div>
+    <div id="menu">
+      <ul>
+          <li><%= link_to 'Changesets', project_changesets_path(@project) if @project && current_user.has_permission_to?(:view_changesets, :for => @project) %></li>
+          <li><%= link_to 'Browse source', project_repository_path(@project) if @project && current_user.has_permission_to?(:view_repository, :for => @project)  %></li>
+          <li><%= link_to 'Milestones', project_milestones_path(@project) if @project && current_user.has_permission_to?(:view_milestones, :for => @project) %></li>
+          <li><%= link_to 'Tickets', project_tickets_path(@project) if @project && current_user.has_permission_to?(:view_tickets, :for => @project) %></li>
+          <li><%= link_to 'New Ticket', new_project_ticket_path(@project) if @project && current_user.has_permission_to?(:add_tickets, :for => @project) %></li>
+	        <li><%= link_to 'Search', new_project_search_path(@project) if @project %></li>
+
+      	  <li class="right"><%= link_to 'Projects', projects_path %></li>
+      	  <li class="right"><%= link_to "Admin", :controller => '/admin/dashboard', :action => 'index' %></li>
+      </ul>
+    </div>
+</div>
+
+<%= yield %>
+
+<div id="footer">
+<div id="collaboa-power">
+   
+  <p>Powered by <a href="http://collaboa.org/">Collaboa <%= image_tag("logo_small.png", :alt => "Visit Collaboa.org") %></a></p>
+</div>
+
+  <% if params["controller"] == 'repository' %>
+  <p class="rss-links">      
+      <%= link_to image_tag("rss.gif") + ' RSS for Changesets', :controller => 'rss', :action => 'changesets' %>
+    </p>
+  <% elsif params["controller"] == 'tickets' %>
+  <p class="rss-links">      
+      <%= link_to image_tag("rss.gif") + ' RSS for Tickets', :controller => 'rss', :action => 'tickets' %>
+    </p>
+  <% end %>
+  <p class="rss-links">      
+      <%= link_to image_tag("rss.gif") + ' RSS for Everything', :controller => 'rss', :action => 'all' %>
+      <small>(<%= link_to 'More..', :controller => 'rss', :action => 'index' %>)</small>
+    </p>  
+
+</div>
+
+</div>
+
+</body>
+</html>

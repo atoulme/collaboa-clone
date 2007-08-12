@@ -1,0 +1,2 @@
+class Release < TicketAttribute
+end

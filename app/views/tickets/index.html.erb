@@ -1,0 +1,41 @@
+<% page_title 'Tickets' %>
+
+<div id="content">
+<h1>Tickets</h1>
+<%= render :partial => 'filter_bar' %>
+
+<table class="listing" id="tickets"> 
+<thead>
+  <tr>
+    <th class="number">Ticket</th>
+    <th class="text">Summary</th>
+    <th class="text">Status</th>
+    <th class="text">Prioriy</th>
+    <th class="text">Component</th>
+    <th class="text">Milestone</th>
+    <th class="text">Release</th>
+    <th class="date">Created</th>
+    <th class="text">Assigned</th>
+  </tr>
+</thead>
+<tbody>
+<% @tickets.each do |ticket| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td class="ticket-number"><%= link_to "##{ticket.id}", :action => 'show', :id => ticket.id %></td>
+    <td class="ticket-summary"><%= link_to h(ticket.summary), :action => 'show', :id => ticket.id  %></td>
+    <td class="ticket-status"><%= ticket.status.name %></td>
+    <td class="ticket-priority"><%= ticket.priority.name unless ticket.priority.nil? %></td>
+    <td class="ticket-component"><%= ticket.component.name unless ticket.component.nil? %></td>
+    <td class="ticket-milestone"><%= ticket.milestone.name unless ticket.milestone.nil? %></td>
+    <td class="ticket-release"><%= ticket.release.name unless ticket.release.nil? %></td>
+    <td class="ticket-created"><%= ticket.created_at.strftime("%d/%m/%Y") %></td>
+		<td class="ticket-assigned-to"><%= ticket.assigned_user.login unless ticket.assigned_user.nil? %></td>
+  </tr>
+  <tr>
+    <td colspan="9" id="ticket_<%=ticket.id %>" style="padding: 0 0 0 0">
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>

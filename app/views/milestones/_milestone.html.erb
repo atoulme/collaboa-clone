@@ -1,0 +1,13 @@
+<h2><%= milestone.name %></h2>
+
+<div id="milestone-info"><%= simple_format(milestone.info) if milestone.info %></div>
+
+  <div class="milestone-progress">
+    <div class="percent-completed" style="width: <%= milestone.completed_tickets_percentage %>%;"></div>
+  </div>
+
+  <p class="milestone-details">
+    <%= link_to "Closed tickets: #{milestone.closed_tickets.size}", project_tickets_path(@project) %> 
+    (<%= milestone.completed_tickets_percentage %>% done) - 
+    <%= link_to "Open tickets: #{milestone.open_tickets.size}", project_tickets_path(@project) %>
+  </p>
