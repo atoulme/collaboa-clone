@@ -19,4 +19,8 @@ module ApplicationHelper
     end
     html
   end
+  
+  def unescape_commas(string)
+    string.gsub('%2C', ',')
+  end
 end

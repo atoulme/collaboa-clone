@@ -10,6 +10,10 @@ class AssociationMock < Array
   def find(*args)
     self
   end
+  
+  def count
+    size
+  end
 end
 
 Spec::Runner.configure do |config|
