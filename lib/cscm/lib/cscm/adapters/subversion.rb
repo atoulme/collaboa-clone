@@ -114,10 +114,14 @@ module Cscm
         end
         
         # Gets the mime type of a node.
-        # TODO: Fix the implementation
         def mime_type
           return '' if self.dir?
-          mime = @root.node_prop(@path, Svn::Core::PROP_MIME_TYPE) || ''
+          mime = @root.node_prop(@path, Svn::Core::PROP_MIME_TYPE)
+          
+          if mime.nil? || mime == 'application/octet-stream'
+            mime = ViewableMimeType.find_by_extension(File.extname(self.name)) || ''
+          end
+          
           mime
         end
         
