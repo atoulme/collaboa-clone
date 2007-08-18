@@ -20,7 +20,11 @@ class ChangesetsController < ApplicationController
     ensure_user_has_permission_to :view_changesets
     
     @changeset = @project.changesets.find_by_revision(params[:id])
-
+    
+    @diffable_changes = @changeset.changes.dup
+    @diffable_changes.reject! {|change| change.status != 'M'}
+    @diffable_changes.reject! {|change| !change.diffable?}
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @changeset }

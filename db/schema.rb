@@ -14,6 +14,11 @@ ActiveRecord::Schema.define(:version => 14) do
   end
 
   create_table "changes", :force => true do |t|
+    t.integer  "changeset_id"
+    t.string   "path"
+    t.string   "status"
+    t.string   "from_path"
+    t.integer  "from_revision"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

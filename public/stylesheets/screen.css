@@ -585,12 +585,13 @@ div.ticketdiff {
  * Changesets
  */
 
-p.log {
+div.log {
   background-color: #ffc;
   border: 1px solid #ccc;
-  padding: 10px; 
   margin-bottom: 10px;
 }
+
+div.log p {margin: 10px; }
 
 div.log-small {
   /*background-color: #eee;*/

@@ -1,15 +1,17 @@
 <li class="change-name"><%= image_tag("chg-icon_#{change.status}.png", 
-                                        :alt => change.name, 
-                                        :title => change.name) %>
-<% if change.name == 'D' %>
+                                        :alt => change.status, 
+                                        :title => change.status) %>
+<% if change.status == 'D' %>
   <%= change.path %>
 <% else %>
   <%#= link_to change.path, url_for_svn_path(change.path, change.revision) %>
+  <%= link_to change.path %>
 <% end %>
-<% if change.name == 'M' && change.diffable? %>
+
+<% if change.status == 'M' && change.diffable? %>
   <small>(<a href="#<%= change.path %>">diff</a>)</small>
-<% elsif change.name == 'CP' %>
-  <small>(from <%= link_to change.from_path, url_for_svn_path(change.from_path, change.revision) %>:<%= change.from_revision %>)</small>
-<% elsif change.name == 'MV' %>
+<% elsif change.status == 'CP' %>
+  <small>(from <%= link_to change.from_path %>:<%= change.from_revision %>)</small>
+<% elsif change.status == 'MV' %>
   <small>(from <%=  "#{change.from_path}:#{change.from_revision}" %>)</small>
 <% end %></li>

@@ -113,6 +113,14 @@ module Cscm
           @root.file_contents(@path, &blk)
         end
         
+        # Gets the mime type of a node.
+        # TODO: Fix the implementation
+        def mime_type
+          return '' if self.dir?
+          mime = @root.node_prop(@path, Svn::Core::PROP_MIME_TYPE) || ''
+          mime
+        end
+        
         def udiff_with_revision(rev)
           old_root = @fs.root(rev)
           differ = Svn::Fs::FileDiff.new(old_root, @path, @root, @path)
