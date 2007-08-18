@@ -505,8 +505,8 @@ fieldset table tr td.set-type { background: #ddd; }
   font-size: 11px; text-align:center;
 }
 #content table#browser td.msg { font-size: 9px; color: #666; }
-#content table#browser td.File a { background-image: url(/images/icon_file.gif); }
-#content table#browser td.Dir a { background-image: url(/images/icon_folder.gif); }
+#content table#browser td.file a { background-image: url(/images/icon_file.gif); }
+#content table#browser td.dir a { background-image: url(/images/icon_folder.gif); }
 #content table#browser td.parent a { background-image: url(/images/icon_up.gif); }
 
 #download-alternate {margin-top: 10px;}

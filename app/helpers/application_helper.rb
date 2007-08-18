@@ -5,7 +5,8 @@ module ApplicationHelper
   end
   
   def format_and_make_links(text)
-    text
+    text = simple_format(text)
+    return text
   end
     
   def include_javascripts_for_controller

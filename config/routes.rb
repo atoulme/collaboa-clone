@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.login 'login/', :controller => 'sessions', :action => 'new'
   map.logout 'logout/', :controller => 'sessions', :action => 'destroy'
   map.activate_user 'users/activate/:activation_code', :controller => 'users', :action => 'activate'
+  map.node 'projects/:project_id/repository/*path', :controller => 'repositories', :action => 'show', :requirements => {:path => /.*/}
+
   map.resources :users, :sessions
   map.resources :projects do |project|
     project.resources :changesets

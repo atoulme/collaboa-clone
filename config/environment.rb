@@ -67,3 +67,5 @@ Collaboa::Setup.run do |config|
   # Set the attachments path. Defaults to RAILS_ROOT/attachments.
   # config.attachments_path = File.join(RAILS_ROOT, 'attachments')
 end
+
+require 'cscm/lib/cscm'

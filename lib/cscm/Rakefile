@@ -1,0 +1,96 @@
+require 'rubygems'
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+require 'rake/packagetask'
+require 'rake/gempackagetask'
+
+require File.dirname(__FILE__) + '/lib/cscm'
+
+def library_root
+  File.dirname(__FILE__)
+end
+
+task :default => :test
+
+Rake::TestTask.new do |test|
+  test.pattern = 'test/**/*_test.rb'
+  test.verbose = true
+end
+
+namespace :doc do
+  Rake::RDocTask.new do |rdoc|  
+    rdoc.rdoc_dir = 'doc'  
+    rdoc.title    = "Cscm - Collaboa SCM library"  
+    rdoc.options << '--line-numbers' << '--inline-source'
+    rdoc.rdoc_files.include('README')
+    rdoc.rdoc_files.include('COPYING')
+    rdoc.rdoc_files.include('INSTALL')    
+    rdoc.rdoc_files.include('lib/**/*.rb')
+  end
+  
+  task :rdoc => 'doc:readme'
+  
+  task :refresh => :rerdoc do
+    system 'open doc/index.html'
+  end
+
+  task :readme do
+    require 'support/rdoc/code_info'
+    RDoc::CodeInfo.parse('lib/**/*.rb')
+    
+    strip_comments = lambda {|comment| comment.gsub(/^# ?/, '')}
+    docs_for       = lambda do |location| 
+      info = RDoc::CodeInfo.for(location)
+      raise RuntimeError, "Couldn't find documentation for `#{location}'" unless info
+      strip_comments[info.comment]
+    end
+  end
+  
+end
+
+desc 'Check code to test ratio'
+task :stats do 
+  library_files = FileList["#{library_root}/lib/**/*.rb"]
+  test_files    = FileList["#{library_root}/test/**/*_test.rb"]
+  count_code_lines = Proc.new do |lines| 
+    lines.inject(0) do |code_lines, line|
+      next code_lines if [/^\s*$/, /^\s*#/].any? {|non_code_line| non_code_line === line}
+      code_lines + 1
+    end
+  end
+  
+  count_code_lines_for_files = Proc.new do |files|
+    files.inject(0) {|code_lines, file| code_lines + count_code_lines[IO.read(file)]}
+  end
+  
+  library_code_lines = count_code_lines_for_files[library_files]
+  test_code_lines    = count_code_lines_for_files[test_files]
+  ratio = Proc.new { sprintf('%.2f', test_code_lines.to_f / library_code_lines)}
+  
+  puts "Code LOC: #{library_code_lines}    Test LOC: #{test_code_lines}    Code to Test Ratio: 1:#{ratio.call}"
+end
+
+namespace :test do
+  desc 'Check test coverage'
+  task :coverage do
+    system("rcov --sort coverage #{File.join(library_root, 'test/*_test.rb')} #{File.join(library_root, 'test/*/*_test.rb')}")
+    show_test_coverage_results
+  end
+  
+  Rake::TestTask.new(:all) do |test|
+    test.pattern = 'test/**/*_test.rb'
+    test.verbose = true
+  end
+  
+  def show_test_coverage_results
+    system("open #{File.join(library_root, 'coverage/index.html')}") if PLATFORM['darwin']
+  end
+  
+  desc 'Remove coverage products'
+  task :clobber_coverage do
+    rm_r 'coverage' rescue nil
+  end
+end
+
+task :clean => ['doc:clobber_rdoc', 'test:clobber_coverage']

@@ -1,0 +1,49 @@
+id: 8.0.r4/0
+type: dir
+count: 0
+cpath: /new_dir
+copyroot: 0 /
+
+PLAIN
+K 9
+file1.txt
+V 14
+file 1.0.r3/58
+K 4
+html
+V 17
+dir 2.0.r1/205551
+K 14
+html_file.html
+V 18
+file 4.0.r1/205670
+K 7
+new_dir
+V 12
+dir 8.0.r4/0
+K 7
+ruby.rb
+V 18
+file 5.0.r1/205239
+K 11
+urandom.bin
+V 18
+file 6.0.r1/206110
+K 3
+xaa
+V 18
+file 7.0.r1/205863
+END
+ENDREP
+id: 0.0.r4/329
+type: dir
+pred: 0.0.r3/426
+count: 4
+text: 4 63 253 253 92595a1b8c256cefa10d136abbc8bbaf
+cpath: /
+copyroot: 0 /
+
+_0.0.t3-1 add false false /new_dir
+
+
+329 456

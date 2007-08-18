@@ -8,28 +8,28 @@
 <div id="filter-selector">
   <dl>
     <dt>Revision:</dt>
-    <dd><%##= link_to @current_entry.revision, :controller => 'repository', :action => 'show_changeset', :revision => @current_entry.revision, :project_name => @project %></dd>
+    <dd><%= link_to @node.revision, project_changeset_path(@project, @node.revision) %></dd>
   </dl>
   <dl>
     <dt>Log:</dt> 
-    <dd><%##= format_and_make_links(@current_entry.log) %></dd>
+    <dd><%= format_and_make_links(@node.log) %></dd>
   </dl>
   <dl>
     <dt>Author:</dt>
-    <dd><%##= @current_entry.author %></dd>
+    <dd><%= @node.author %></dd>
   </dl>
   <dl>
     <dt>Date:</dt> 
-    <dd><%##= @current_entry.date %></dd>
+    <dd><%= @node.date %></dd>
   </dl>
-  <%## unless @current_entry.proplist.empty? %>
+  <% unless @node.proplist.empty? %>
   <dl>
     <dt>Properties:</dt> 
-  <%# @current_entry.proplist.each do |name, value| %>
-    <dd>Property <%#= name %> is set <%#= value.empty? ? '' : "to #{value}" %></dd>
-  <%# end %>
+  <% @node.proplist.each do |name, value| %>
+    <dd>Property <%= name %> is set <%= value.empty? ? '' : "to #{value}" %></dd>
+  <% end %>
   </dl>
-  <%# end %>
+  <% end %>
 </div>
 
 <table id="browser" class="listing">
@@ -44,6 +44,7 @@
  </thead>
  <tbody>
   <%# unless params[:path].empty? %>
+  <% unless true %>
   <tr class="parent">
   <%# paths = params[:path]; paths.pop %>
     <td class="name parent"><%#= link_to '..', :path => paths %></td>
@@ -52,17 +53,17 @@
     <td class="rev"></td>
     <td class="msg"></td>
   </tr>
-  <%# end %>
-  <%# @node_entries.cycle do |entry, css| %>
+  <% end %>
+  <% @nodes.each do |node| %>
   
-  <tr class="<%#= css %>">
-    <td class="name <%#= entry.type %>"><%#= link_to entry.name, url_for_svn_path(entry.path) %></td>
-    <td class="age"><%#= distance_of_time_in_words(entry.date, Time.now) %></td>
-    <td class="size"><%#= entry.type == 'File' ? number_to_human_size(entry.size) : "#{entry.entries.size} files"  %></td>
-    <td class="rev"><%#= link_to entry.revision, :controller => 'repository', :action => 'show_changeset', :revision => entry.revision, :project_name => params[:project_name] %></td>
-    <td class="msg">[<%#= entry.author %>] <%#= truncate(h(entry.log), 50) %> </td>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td class="name <%= node.dir? ? 'dir' : 'file' %>"><%= link_to node.name, node_path(:project_id => @project, :path => node.path.gsub(/^\//, '')) %></td>
+    <td class="age"><%= distance_of_time_in_words(node.date, Time.now) %></td>
+    <td class="size"><%= node.file? ? number_to_human_size(node.size) : "#{node.entries.size} files"  %></td>
+    <td class="rev"><%= link_to node.revision, project_changeset_path(@project, node.revision)%></td>
+    <td class="msg">[<%= node.author %>] <%= truncate(h(node.log), 50) %> </td>
   </tr>
-  <%# end %>
+  <% end %>
  </tbody>
 </table>
 

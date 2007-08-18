@@ -55,17 +55,17 @@
   <p>Powered by <a href="http://collaboa.org/">Collaboa <%= image_tag("logo_small.png", :alt => "Visit Collaboa.org") %></a></p>
 </div>
 
-  <% if params["controller"] == 'repository' %>
+  <% if controller.controller_name == 'changesets' %>
   <p class="rss-links">      
-      <%= link_to image_tag("rss.gif") + ' RSS for Changesets', :controller => 'rss', :action => 'changesets' %>
+      <%= link_to image_tag("rss.gif") + ' RSS for Changesets', formatted_project_changesets_path(@project, :atom) %>
     </p>
-  <% elsif params["controller"] == 'tickets' %>
+  <% elsif controller.controller_name == 'tickets' %>
   <p class="rss-links">      
-      <%= link_to image_tag("rss.gif") + ' RSS for Tickets', :controller => 'rss', :action => 'tickets' %>
+      <%= link_to image_tag("rss.gif") + ' RSS for Tickets', formatted_project_tickets_path(@project, :atom) %>
     </p>
   <% end %>
   <p class="rss-links">      
-      <%= link_to image_tag("rss.gif") + ' RSS for Everything', :controller => 'rss', :action => 'all' %>
+      <%= link_to image_tag("rss.gif") + ' RSS for Everything', formatted_project_path(@project, :atom) %>
       <small>(<%= link_to 'More..', :controller => 'rss', :action => 'index' %>)</small>
     </p>  
 
