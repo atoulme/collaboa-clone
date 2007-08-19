@@ -20,17 +20,29 @@ describe "/attachments/show.html.erb" do
       with_tag('dt', 'Filename:')
       with_tag('dd', 'new_feature_patch.diff')
     end
+  end
+  
+  it "should render size property"  
+    render "/attachments/show.html.erb"
     
     response.should have_tag('dl') do
       with_tag('dt', 'Size:')
       with_tag('dd', '1 KB')
     end
+  end
     
+  it "should render uploaded by property"
+    render "/attachments/show.html.erb"
+  
     response.should have_tag('dl') do
       with_tag('dt', 'Uploaded By:')
       with_tag('dd', 'Bob')
     end
+  end
     
+  it "should render uploaded at propery"
+    render "/attachments/show.html.erb"
+  
     response.should have_tag('dl') do
       with_tag('dt', 'Uploaded At:')
       with_tag('dd', Time.gm(2007, 8, 19, 21, 05, 00).to_s)
