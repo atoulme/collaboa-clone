@@ -8,8 +8,13 @@ require 'ostruct'
 
 class AssociationMock < Array
   def find(*args)
-    self
+    if args.first == :first
+      self.first
+    elsif args.first == :all
+      self
+    end
   end
+  alias_method :paginate, :find
   
   def count
     size
@@ -20,9 +25,9 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures'
-  config.before(:each, :behaviour_type => :controller) do
-    raise_controller_errors
-  end
+  # config.before(:each, :behaviour_type => :controller) do
+  #     raise_controller_errors
+  #   end
 
   # You can declare fixtures for each behaviour like this:
   #   describe "...." do
@@ -42,5 +47,11 @@ Spec::Runner.configure do |config|
     association = AssociationMock.new
     association.concat(records)
     association
+  end
+  
+  def mock_user_with_permission_to(permission)
+    user = mock_model(User)
+    user.should_receive(:has_permission_to?).with(permission, an_instance_of(Hash)).and_return(true)
+    user
   end
 end

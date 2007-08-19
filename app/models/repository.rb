@@ -45,7 +45,7 @@ class Repository < ActiveRecord::Base
         old_path = path_details[1]
         from_revision = path_details[2]
         
-        changesets.changes.build(:status => 'MV',
+        changeset.changes.build(:status => 'MV',
                                  :path => new_path, :from_path => old_path,
                                  :from_revision => from_revision)
       end
@@ -55,7 +55,7 @@ class Repository < ActiveRecord::Base
         old_path = path_details[1]
         from_revision = path_details[2]
         
-        changesets.changes.build(:status => 'CP',
+        changeset.changes.build(:status => 'CP',
                                  :path => new_path, :from_path => old_path,
                                  :from_revision => from_revision)
       end

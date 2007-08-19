@@ -6,7 +6,6 @@ describe "/attachments/show.html.erb" do
   before do
     @attachment = mock_model(Attachment)
 
-
     assigns[:attachment] = @attachment
   end
 

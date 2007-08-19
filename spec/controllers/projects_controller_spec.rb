@@ -31,7 +31,7 @@ end
 describe ProjectsController, "handling GET /projects" do
 
   before do
-    @projects = mock_association()
+    @projects = mock_association(mock_model(Project))
     @user = mock_model(User, :projects => @projects)
     login_as(@user)
   end
@@ -152,42 +152,98 @@ describe ProjectsController, "handling GET /projects/1" do
   before do
     @project = mock_model(Project)
     Project.stub!(:find).and_return(@project)
+    @projects = mock_association(@project)
+    @projects.stub!(:find).and_return(@project)
     
-    login_with_mocked_user
+    @user = mock_model(User, :projects => @projects)
   end
   
   def do_get
     get :show, :id => "1"
   end
 
-  it "should be successful" do
-    do_get
-    response.should be_success
-  end
-  
-  it "should render show template" do
-    do_get
-    response.should render_template('show')
-  end
-  
-  it "should find the project requested" do
-    Project.should_receive(:find).with("1").and_return(@project)
+  it "should find the requested project" do
+    @user.stub!(:has_permission_to?).and_return(true)
+    login_as @user
+    
+    @user.should_receive(:projects).and_return(@projects)
+    @projects.should_receive(:find).and_return(@project)
+    
     do_get
   end
-  
-  it "should assign the found project for the view" do
+
+  it "should redirect to project changesets if user has permission" do
+    @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(true)
+    login_as @user
+    
     do_get
-    assigns[:project].should equal(@project)
+    response.should redirect_to(project_changesets_path(@project))
   end
+   
+  it "should redirect to project repository if user has permission" do
+     @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(false)
+     @user.should_receive(:has_permission_to?).with(:view_repository, :for => @project).and_return(true)
+     login_as @user
+
+     do_get
+     response.should redirect_to(project_repository_path(@project))
+  end
+    
+  it "should redirect to project milestones if user has permission" do
+      @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_repository, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_milestones, :for => @project).and_return(true)
+      login_as @user
+
+      do_get
+      response.should redirect_to(project_milestones_path(@project))
+    end
+     
+  it "should redirect to project tickets if user has permission" do
+       @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(false)
+       @user.should_receive(:has_permission_to?).with(:view_repository, :for => @project).and_return(false)
+       @user.should_receive(:has_permission_to?).with(:view_milestones, :for => @project).and_return(false)
+       @user.should_receive(:has_permission_to?).with(:view_tickets, :for => @project).and_return(true)
+       login_as @user
+
+       do_get
+       response.should redirect_to(project_tickets_path(@project))
+    end
+      
+  it "should redirect to a new project ticket if user has permission" do
+      @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_repository, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_milestones, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_tickets, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:add_tickets, :for => @project).and_return(true)
+      login_as @user
+
+      do_get
+      response.should redirect_to(new_project_ticket_path(@project))
+    end
+    
+  it "should redirect to login page if user doesn't have any permissions" do
+      @user.should_receive(:has_permission_to?).with(:view_changesets, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_repository, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_milestones, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:view_tickets, :for => @project).and_return(false)
+      @user.should_receive(:has_permission_to?).with(:add_tickets, :for => @project).and_return(false)
+      login_as @user
+
+      do_get
+      response.should redirect_to(login_path)
+    end
 end
 
 describe ProjectsController, "handling GET /projects/1.xml" do
 
   before do
     @project = mock_model(Project, :to_xml => "XML")
-    Project.stub!(:find).and_return(@project)
+    @projects = mock_association(@project)
+    @projects.stub!(:find).and_return(@project)
     
-    login_with_mocked_user
+    @user = mock_model(User, :projects => @projects)
+    login_as @user
   end
   
   def do_get
@@ -201,7 +257,8 @@ describe ProjectsController, "handling GET /projects/1.xml" do
   end
   
   it "should find the project requested" do
-    Project.should_receive(:find).with("1").and_return(@project)
+    @user.should_receive(:projects).and_return(@projects)
+    @projects.should_receive(:find).with('1').and_return(@project)
     do_get
   end
   
@@ -209,167 +266,5 @@ describe ProjectsController, "handling GET /projects/1.xml" do
     @project.should_receive(:to_xml).and_return("XML")
     do_get
     response.body.should == "XML"
-  end
-end
-
-describe ProjectsController, "handling GET /projects/new" do
-
-  before do
-    @project = mock_model(Project)
-    Project.stub!(:new).and_return(@project)
-    
-    login_with_mocked_user
-  end
-  
-  def do_get
-    get :new
-  end
-
-  it "should be successful" do
-    do_get
-    response.should be_success
-  end
-  
-  it "should render new template" do
-    do_get
-    response.should render_template('new')
-  end
-  
-  it "should create an new project" do
-    Project.should_receive(:new).and_return(@project)
-    do_get
-  end
-  
-  it "should not save the new project" do
-    @project.should_not_receive(:save)
-    do_get
-  end
-  
-  it "should assign the new project for the view" do
-    do_get
-    assigns[:project].should equal(@project)
-  end
-end
-
-describe ProjectsController, "handling GET /projects/1/edit" do
-
-  before do
-    @project = mock_model(Project)
-    Project.stub!(:find).and_return(@project)
-    
-    login_with_mocked_user
-  end
-  
-  def do_get
-    get :edit, :id => "1"
-  end
-
-  it "should be successful" do
-    do_get
-    response.should be_success
-  end
-  
-  it "should render edit template" do
-    do_get
-    response.should render_template('edit')
-  end
-  
-  it "should find the project requested" do
-    Project.should_receive(:find).and_return(@project)
-    do_get
-  end
-  
-  it "should assign the found Project for the view" do
-    do_get
-    assigns[:project].should equal(@project)
-  end
-end
-
-describe ProjectsController, "handling POST /projects" do
-
-  before do
-    @project = mock_model(Project, :to_param => "1", :save => true)
-    Project.stub!(:new).and_return(@project)
-    @params = {}
-    
-    login_with_mocked_user
-  end
-  
-  def do_post
-    post :create, :project => @params
-  end
-  
-  it "should create a new project" do
-    Project.should_receive(:new).with(@params).and_return(@project)
-    do_post
-  end
-
-  it "should redirect to the new project" do
-    do_post
-    response.should redirect_to(project_url("1"))
-  end
-end
-
-describe ProjectsController, "handling PUT /projects/1" do
-
-  before do
-    @project = mock_model(Project, :to_param => "1", :update_attributes => true)
-    Project.stub!(:find).and_return(@project)
-    
-    login_with_mocked_user
-  end
-  
-  def do_update
-    put :update, :id => "1"
-  end
-  
-  it "should find the project requested" do
-    Project.should_receive(:find).with("1").and_return(@project)
-    do_update
-  end
-
-  it "should update the found project" do
-    @project.should_receive(:update_attributes)
-    do_update
-    assigns(:project).should equal(@project)
-  end
-
-  it "should assign the found project for the view" do
-    do_update
-    assigns(:project).should equal(@project)
-  end
-
-  it "should redirect to the project" do
-    do_update
-    response.should redirect_to(project_url("1"))
-  end
-end
-
-describe ProjectsController, "handling DELETE /projects/1" do
-
-  before do
-    @project = mock_model(Project, :destroy => true)
-    Project.stub!(:find).and_return(@project)
-    
-    login_with_mocked_user
-  end
-  
-  def do_delete
-    delete :destroy, :id => "1"
-  end
-
-  it "should find the project requested" do
-    Project.should_receive(:find).with("1").and_return(@project)
-    do_delete
-  end
-  
-  it "should call destroy on the found project" do
-    @project.should_receive(:destroy)
-    do_delete
-  end
-  
-  it "should redirect to the projects list" do
-    do_delete
-    response.should redirect_to(projects_url)
   end
 end

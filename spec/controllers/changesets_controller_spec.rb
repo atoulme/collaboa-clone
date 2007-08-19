@@ -2,41 +2,34 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ChangesetsController, "#route_for" do
 
-  it "should map { :controller => 'changesets', :action => 'index' } to /changesets" do
-    route_for(:controller => "changesets", :action => "index").should == "/changesets"
+  it "should map { :controller => 'changesets', :action => 'index', :project_id => 1 } to /project/1/changesets" do
+    route_for(:controller => "changesets", :action => "index", :project_id => 1).should == "/projects/1/changesets"
   end
   
-  it "should map { :controller => 'changesets', :action => 'new' } to /changesets/new" do
-    route_for(:controller => "changesets", :action => "new").should == "/changesets/new"
+  it "should map { :controller => 'changesets', :action => 'create', :project_id => 1 } to /projects/1/changesets" do
+    route_for(:controller => "changesets", :action => "create", :project_id => '1').should == "/projects/1/changesets"
   end
   
-  it "should map { :controller => 'changesets', :action => 'show', :id => 1 } to /changesets/1" do
-    route_for(:controller => "changesets", :action => "show", :id => 1).should == "/changesets/1"
+  it "should map { :controller => 'changesets', :action => 'show', :id => 1, :project_id => 1 } to /projects/1/changesets/1" do
+    route_for(:controller => "changesets", :action => "show", :id => 1, :project_id => 1).should == "/projects/1/changesets/1"
   end
-  
-  it "should map { :controller => 'changesets', :action => 'edit', :id => 1 } to /changesets/1/edit" do
-    route_for(:controller => "changesets", :action => "edit", :id => 1).should == "/changesets/1/edit"
-  end
-  
-  it "should map { :controller => 'changesets', :action => 'update', :id => 1} to /changesets/1" do
-    route_for(:controller => "changesets", :action => "update", :id => 1).should == "/changesets/1"
-  end
-  
-  it "should map { :controller => 'changesets', :action => 'destroy', :id => 1} to /changesets/1" do
-    route_for(:controller => "changesets", :action => "destroy", :id => 1).should == "/changesets/1"
-  end
-  
 end
 
-describe ChangesetsController, "handling GET /changesets" do
+describe ChangesetsController, "handling GET /projects/1/changesets" do
 
   before do
     @changeset = mock_model(Changeset)
-    Changeset.stub!(:find).and_return([@changeset])
+    @changesets = [@changeset]
+    @changesets.stub!(:paginate).and_return(@changesets)
+    
+    @project = mock_model(Project, :changesets => @changesets)
+    Project.stub!(:find).and_return(@project)
+    
+    login_as mock_user_with_permission_to(:view_changesets)
   end
   
   def do_get
-    get :index
+    get :index, :project_id => 1
   end
   
   it "should be successful" do
@@ -50,7 +43,7 @@ describe ChangesetsController, "handling GET /changesets" do
   end
   
   it "should find all changesets" do
-    Changeset.should_receive(:find).with(:all).and_return([@changeset])
+    @project.should_receive(:changesets).and_return(@changesets)
     do_get
   end
   
@@ -60,16 +53,23 @@ describe ChangesetsController, "handling GET /changesets" do
   end
 end
 
-describe ChangesetsController, "handling GET /changesets.xml" do
+describe ChangesetsController, "handling GET /projects/1/changesets.xml" do
 
   before do
-    @changeset = mock_model(Changeset, :to_xml => "XML")
-    Changeset.stub!(:find).and_return(@changeset)
+    @changeset = mock_model(Changeset)
+    @changesets = [@changeset]
+    @changesets.stub!(:paginate).and_return(@changesets)
+    @changesets.stub!(:to_xml).and_return('XML')
+    
+    @project = mock_model(Project, :changesets => @changesets)
+    Project.stub!(:find).and_return(@project)
+    
+    login_as mock_user_with_permission_to(:view_changesets)
   end
   
   def do_get
     @request.env["HTTP_ACCEPT"] = "application/xml"
-    get :index
+    get :index, :project_id => 1
   end
   
   it "should be successful" do
@@ -78,26 +78,37 @@ describe ChangesetsController, "handling GET /changesets.xml" do
   end
 
   it "should find all changesets" do
-    Changeset.should_receive(:find).with(:all).and_return([@changeset])
+    @project.should_receive(:changesets).and_return(@changesets)
     do_get
   end
   
   it "should render the found changesets as xml" do
-    @changeset.should_receive(:to_xml).and_return("XML")
+    @changesets.should_receive(:to_xml).and_return("XML")
     do_get
     response.body.should == "XML"
   end
 end
 
-describe ChangesetsController, "handling GET /changesets/1" do
+describe ChangesetsController, "handling GET /projects/1/changesets/1" do
 
   before do
-    @changeset = mock_model(Changeset)
-    Changeset.stub!(:find).and_return(@changeset)
+    @diffable_change = mock_model(Change, :status => 'M', :diffable? => true)
+    @undiffable_change = mock_model(Change, :status => 'A')
+    
+    @changes = mock_association(@diffable_change, @undiffable_change)
+    
+    @changeset = mock_model(Changeset, :changes => @changes)
+    @changesets = [@changeset]
+    @changesets.stub!(:find_by_revision).and_return(@changeset)
+    
+    @project = mock_model(Project, :changesets => @changesets)
+    Project.stub!(:find).and_return(@project)
+    
+    login_as mock_user_with_permission_to(:view_changesets)
   end
   
   def do_get
-    get :show, :id => "1"
+    get :show, :id => "1", :project_id => 1
   end
 
   it "should be successful" do
@@ -111,7 +122,8 @@ describe ChangesetsController, "handling GET /changesets/1" do
   end
   
   it "should find the changeset requested" do
-    Changeset.should_receive(:find).with("1").and_return(@changeset)
+    @project.should_receive(:changesets).and_return(@changesets)
+    @changesets.should_receive(:find_by_revision).and_return(@changeset)
     do_get
   end
   
@@ -119,18 +131,31 @@ describe ChangesetsController, "handling GET /changesets/1" do
     do_get
     assigns[:changeset].should equal(@changeset)
   end
+  
+  it "should select all diffable changes" do
+    do_get
+    assigns[:diffable_changes].should eql([@diffable_change])
+  end
 end
 
-describe ChangesetsController, "handling GET /changesets/1.xml" do
+describe ChangesetsController, "handling GET /projects/1/changesets/1.xml" do
 
   before do
-    @changeset = mock_model(Changeset, :to_xml => "XML")
-    Changeset.stub!(:find).and_return(@changeset)
+    @changes = mock_association(mock_model(Change, :status => 'A'))
+    
+    @changeset = mock_model(Changeset, :changes => @changes, :to_xml => 'XML')
+    @changesets = [@changeset]
+    @changesets.stub!(:find_by_revision).and_return(@changeset)
+    
+    @project = mock_model(Project, :changesets => @changesets)
+    Project.stub!(:find).and_return(@project)
+    
+    login_as mock_user_with_permission_to(:view_changesets)
   end
   
   def do_get
     @request.env["HTTP_ACCEPT"] = "application/xml"
-    get :show, :id => "1"
+    get :show, :id => "1", :project_id => 1
   end
 
   it "should be successful" do
@@ -139,7 +164,8 @@ describe ChangesetsController, "handling GET /changesets/1.xml" do
   end
   
   it "should find the changeset requested" do
-    Changeset.should_receive(:find).with("1").and_return(@changeset)
+    @project.should_receive(:changesets).and_return(@changesets)
+    @changesets.should_receive(:find_by_revision).and_return(@changeset)
     do_get
   end
   
@@ -150,154 +176,27 @@ describe ChangesetsController, "handling GET /changesets/1.xml" do
   end
 end
 
-describe ChangesetsController, "handling GET /changesets/new" do
-
-  before do
-    @changeset = mock_model(Changeset)
-    Changeset.stub!(:new).and_return(@changeset)
-  end
-  
-  def do_get
-    get :new
-  end
-
-  it "should be successful" do
-    do_get
-    response.should be_success
-  end
-  
-  it "should render new template" do
-    do_get
-    response.should render_template('new')
-  end
-  
-  it "should create an new changeset" do
-    Changeset.should_receive(:new).and_return(@changeset)
-    do_get
-  end
-  
-  it "should not save the new changeset" do
-    @changeset.should_not_receive(:save)
-    do_get
-  end
-  
-  it "should assign the new changeset for the view" do
-    do_get
-    assigns[:changeset].should equal(@changeset)
-  end
-end
-
-describe ChangesetsController, "handling GET /changesets/1/edit" do
-
-  before do
-    @changeset = mock_model(Changeset)
-    Changeset.stub!(:find).and_return(@changeset)
-  end
-  
-  def do_get
-    get :edit, :id => "1"
-  end
-
-  it "should be successful" do
-    do_get
-    response.should be_success
-  end
-  
-  it "should render edit template" do
-    do_get
-    response.should render_template('edit')
-  end
-  
-  it "should find the changeset requested" do
-    Changeset.should_receive(:find).and_return(@changeset)
-    do_get
-  end
-  
-  it "should assign the found Changeset for the view" do
-    do_get
-    assigns[:changeset].should equal(@changeset)
-  end
-end
-
-describe ChangesetsController, "handling POST /changesets" do
+describe ChangesetsController, "handling POST /projects/1/changesets" do
 
   before do
     @changeset = mock_model(Changeset, :to_param => "1", :save => true)
     Changeset.stub!(:new).and_return(@changeset)
+    
+    @project = mock_model(Project)
+    Project.stub!(:find).and_return(@project)
+    
     @params = {}
+    
+    login_as mock_user_with_permission_to(:add_changesets)
   end
   
   def do_post
-    post :create, :changeset => @params
+    @request.env["HTTP_ACCEPT"] = "application/xml"
+    post :create, :project_id => 1, :changeset => @params
   end
   
   it "should create a new changeset" do
     Changeset.should_receive(:new).with(@params).and_return(@changeset)
     do_post
-  end
-
-  it "should redirect to the new changeset" do
-    do_post
-    response.should redirect_to(changeset_url("1"))
-  end
-end
-
-describe ChangesetsController, "handling PUT /changesets/1" do
-
-  before do
-    @changeset = mock_model(Changeset, :to_param => "1", :update_attributes => true)
-    Changeset.stub!(:find).and_return(@changeset)
-  end
-  
-  def do_update
-    put :update, :id => "1"
-  end
-  
-  it "should find the changeset requested" do
-    Changeset.should_receive(:find).with("1").and_return(@changeset)
-    do_update
-  end
-
-  it "should update the found changeset" do
-    @changeset.should_receive(:update_attributes)
-    do_update
-    assigns(:changeset).should equal(@changeset)
-  end
-
-  it "should assign the found changeset for the view" do
-    do_update
-    assigns(:changeset).should equal(@changeset)
-  end
-
-  it "should redirect to the changeset" do
-    do_update
-    response.should redirect_to(changeset_url("1"))
-  end
-end
-
-describe ChangesetsController, "handling DELETE /changesets/1" do
-
-  before do
-    @changeset = mock_model(Changeset, :destroy => true)
-    Changeset.stub!(:find).and_return(@changeset)
-  end
-  
-  def do_delete
-    delete :destroy, :id => "1"
-  end
-
-  it "should find the changeset requested" do
-    Changeset.should_receive(:find).with("1").and_return(@changeset)
-    do_delete
-  end
-  
-  it "should call destroy on the found changeset" do
-    @changeset.should_receive(:destroy)
-    do_delete
-  end
-  
-  it "should redirect to the changesets list" do
-    do_delete
-    response.should redirect_to(changesets_url)
   end
 end

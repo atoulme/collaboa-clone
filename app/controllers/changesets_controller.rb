@@ -39,7 +39,7 @@ class ChangesetsController < ApplicationController
 
     respond_to do |format|
       if @changeset.save
-        format.xml  { render :xml => @changeset, :status => :created, :location => @changeset }
+        format.xml  { render :xml => @changeset, :status => :created, :location => project_changeset_path(@project, @changeset) }
       else
         format.xml  { render :xml => @changeset.errors, :status => :unprocessable_entity }
       end
