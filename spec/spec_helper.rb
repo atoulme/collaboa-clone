@@ -4,22 +4,8 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec/rails'
 require File.expand_path(File.dirname(__FILE__) + "/test_helpers/authenticated_test_helper")
+require File.expand_path(File.dirname(__FILE__) + "/test_helpers/association_mock_helper")
 require 'ostruct'
-
-class AssociationMock < Array
-  def find(*args)
-    if args.first == :first
-      self.first
-    elsif args.first == :all
-      self
-    end
-  end
-  alias_method :paginate, :find
-  
-  def count
-    size
-  end
-end
 
 Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
@@ -42,16 +28,5 @@ Spec::Runner.configure do |config|
   # for all of your examples, even those that don't use them.
   
   include AuthenticatedTestHelper
-  
-  def mock_association(*records)
-    association = AssociationMock.new
-    association.concat(records)
-    association
-  end
-  
-  def mock_user_with_permission_to(permission)
-    user = mock_model(User)
-    user.should_receive(:has_permission_to?).with(permission, an_instance_of(Hash)).and_return(true)
-    user
-  end
+  include AssociationMockHelper
 end
