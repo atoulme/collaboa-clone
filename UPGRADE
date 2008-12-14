@@ -1,0 +1,8 @@
+Upgrading Collaboa
+==================
+
+From 0.5 to 0.5.6
+----------------
+Run the following to recreate the changes table with the proper fields and
+resync the (entire) repository
+$ ./script/repository_syncer --truncate-db --reload-db

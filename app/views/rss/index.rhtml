@@ -1,0 +1,14 @@
+<% @page_title = 'Available RSS Feeds' %>
+
+<div id="content">
+  <h1>Available RSS Feeds</h1>
+  
+  <h2><%= link_to 'Everything', :action => 'all' -%></h2>
+  <p>Contains all tickets, ticket changes and changesets combined</p>
+  
+  <h2><%= link_to 'Changesets', :action => 'changesets' -%></h2>
+  <p>Contains all changesets</p>
+  
+  <h2><%= link_to 'Tickets', :action => 'tickets' -%></h2>
+  <p>Contains all tickets and ticket changes</p>
+</div>

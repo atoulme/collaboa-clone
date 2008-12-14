@@ -1,0 +1,14 @@
+<div id="content">
+
+
+<ul>
+<% for tag in @tags %>
+<li><%= tag.name %> <%= link_to "Edit", :action => "edit", :id => tag.id %> <%= link_to "Delete", {:action => "delete", :id => tag.id}, :confirm => "Are you sure you want to delete this tag ?" %></li>
+<p><%= textilize tag.description %></p>
+
+<% end %>
+</ul>
+
+<br/>
+<%= link_to "Create a new tag", :action => "create" %>
+</div>

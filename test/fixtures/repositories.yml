@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+test:
+  id: 1
+  path: <%= TEST_REPOS_PATH %>
+  name: testing repos
+

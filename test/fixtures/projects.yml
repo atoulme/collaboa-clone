@@ -1,0 +1,31 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_project:
+  id: 1
+  name: "first project"
+  short_name: "first:project"
+  closed: false
+  repository_id: 1
+second_project:
+  id: 2
+  name: "second project"
+  short_name: "second:project"
+  closed: false
+  repository_id: 1
+closed:
+  id: 3
+  name: "third project"
+  short_name: "third:project"
+  closed: true
+  repository_id: 1
+fourth_project:
+  id: 4
+  name: "fourth project"
+  short_name: "fourth:project"
+  closed: false
+  repository_id: 1
+  root_path: project4
+no_repos_project:
+  id: 5
+  name: "no repos project"
+  short_name: "no:repos:project"
+  closed: false

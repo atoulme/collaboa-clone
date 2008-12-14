@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+normal:
+  id: 1
+  name: Normal
+minor:
+  id: 2
+  name: Minor
+huge:
+  id: 3
+  name: Huge

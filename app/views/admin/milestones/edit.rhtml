@@ -1,0 +1,19 @@
+<% @page_title = 'Edit Milestone' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 <%= link_to 'Milestones', :action => 'index' -%></li>
+      <li>&#187 Editing Milestone</li>
+    </ul>
+  </div>
+
+  <%= form_tag :action => 'edit', :id => @milestone.id %>
+    <fieldset>
+      <legend>Edit milestone</legend>
+      <%= render :partial => 'form' -%>
+      <input type="submit" value="Save" class="submit">
+    </fieldset>
+  </form>
+</div>

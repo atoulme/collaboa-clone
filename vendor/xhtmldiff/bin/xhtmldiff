@@ -1,0 +1,34 @@
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -I.
+
+require 'xhtmldiff'
+
+include REXML
+
+if ARGV[0] == '-d'
+	$DEBUG = true
+	ARGV.shift
+end
+
+if ARGV.size != 2
+	puts "usage: #{File.basename($0)} [-d] old new > output.html"
+	exit 255
+end
+
+odoc = Document.new
+odoc << (Element.new 'html')
+odoc.root.add_namespace('http://www.w3.org/1999/xhtml')
+odoc.root << (head = Element.new 'head')
+head << (title = Element.new 'title')
+title << Text.new("Diff of #{ARGV[0]} and #{ARGV[1]}")
+odoc.root << (body = Element.new 'body')
+
+hd = XHTMLDiff.new(body)
+
+a = HashableElementDelegator.new(XPath.first(Document.new(File.read(ARGV[0])), '/html/body'))
+b = HashableElementDelegator.new(XPath.first(Document.new(File.read(ARGV[1])), '/html/body'))
+
+Diff::LCS.traverse_balanced(a, b, hd)
+
+$stdout.puts %{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">}
+odoc.write($stdout, 0, false, true)
+

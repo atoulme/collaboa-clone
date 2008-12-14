@@ -1,0 +1,29 @@
+<% @page_title = 'Create new release' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Releases</li>
+    </ul>
+  </div>
+  
+  <h2>Current Releases:</h2>
+  <dl>
+  <% @projects.select {|project| project.releases.any? }.each do |project| %>
+		<dt><%= project.name %></dt>
+		<% project.releases.each do |release| %>
+			<dd>
+				<ul>
+		    <li>
+          <%= link_to release.name, :action => 'edit', :id => release.id  -%> 
+          <small><%= link_to 'delete', {:action => 'delete', :id => release.id}, :confirm => 'Really delete this release?', :method => 'post' %></small>
+		    </li>
+				</ul>
+			</dd>
+		<% end %>
+  <% end %>
+  </dl>
+
+  <%= render :partial => 'form' %>
+</div>

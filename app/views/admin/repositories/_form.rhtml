@@ -1,0 +1,27 @@
+<%= error_messages_for 'repository' %>
+
+<% if params[:action] == 'edit' -%>
+    <%= form_tag :action => 'edit', :id => @repository.id %>
+<% else -%>
+  <%= form_tag  %>
+<% end -%>
+<fieldset>
+  <legend><%= params[:action] == 'edit' ? 'Edit' : 'Create new' -%> repository reference</legend>
+
+  <label class="first">Name: 
+  <%= text_field 'repository', 'name' -%></label>
+  
+  <label>Path: 
+  <%= text_field 'repository', 'path', :id => 'path' -%></label>
+
+  <%= observe_field  :path, 
+                      :frequency => 1, 
+                      :update => 'test-result', 
+                      :url => {:action => 'test_repos' },
+                      :with => "'path=' + escape($F('path'))" -%>
+  
+  <div id="test-result"> </div>
+
+  <input type="submit" value="Submit" class="submit">
+
+</form>

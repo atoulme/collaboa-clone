@@ -1,0 +1,42 @@
+<% @page_title = 'New ticket' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Tickets', :action => 'index' -%></li>
+      <li>&#187 New Ticket</li>
+    </ul>
+  </div>
+
+  <%= error_messages_for 'ticket' %>
+  
+  <% form_for :ticket, :action => 'new', :html => {:id => 'ticket_form'} do |f| %>
+  <fieldset>
+    <legend>Create a new ticket</legend>
+    
+    <label class="first">Name or Email: 
+    <%= f.text_field 'author' -%></label>
+
+    <div class="clearfix">
+      <div class="half_width">
+        <label>Summary: 
+        <%= f.text_field 'summary' -%></label>
+        <label>Description: <span class="formatting_guide">(<%= link_to "Textile", "http://hobix.com/textile/", :popup => true %> and &lt;pre&gt;  allowed)</span>
+        <%= f.text_area 'content' -%></label>
+      </div>
+      <div id="preview" class="half_width"></div>
+    </div>
+    <div id="foo">
+      <%= render_partial 'permilestone' %>
+    </div>    
+    </fieldset>
+    
+    <%= submit_tag "File new ticket", :class => "submit" %>
+    
+  <% end %>
+  
+  <%= observe_form "ticket_form", 
+        :frequency => 2, 
+        :update => "preview",
+        :url => { :action => "preview" } %>
+</div>

@@ -1,0 +1,32 @@
+<div id="filter-selector">
+  <dl>
+    <dt>Revision:</dt>
+    <dd><%= link_to node.revision, :controller => 'repository', :action => 'show_changeset', :revision => node.revision, :project_name => @project_name -%></dd>
+
+  </dl>
+  <dl>
+    <dt>Log:</dt> 
+    <dd><%= format_and_make_links(node.log) -%></dd>
+  </dl>
+  <dl>
+    <dt>Author:</dt>
+    <dd><%= node.author -%></dd>
+  </dl>
+  <dl>
+    <dt>Date:</dt> 
+    <dd><%= node.date -%></dd>
+  </dl>
+  <dl>
+    <dt>Size:</dt> 
+    <dd><%= node.size -%> Bytes</dd>
+  </dl>
+  <% unless node.proplist.empty? -%>
+  <dl>
+    <dt>Properties:</dt> 
+  <% node.proplist.each do |name, value| %>
+    <dd>Property <%= name -%> is set <%= value.empty? ? '' : "to #{value}" -%></dd>
+  <% end %>
+  </dl>
+  <% end -%>
+  <p><%= link_to 'Show revision log', :action => 'revisions', :path => params[:path] -%></p>
+</div>

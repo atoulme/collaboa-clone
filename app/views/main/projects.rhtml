@@ -1,0 +1,15 @@
+<% @page_title = 'Projects' %>
+
+<div id="content">
+	<% if @projects.empty? %>
+		<h2>No projects available</h2>
+	<% else %>
+		<h1>Available Projects</h1>
+		<dl>
+			<% @projects.each do |project| %>
+				<dt class="project-name"><%= link_to h(project.name), :controller => 'main', :project => project.short_name  -%></dt>
+				<dd class="project-info"><%= textilize project.info -%></dd>
+			<% end %>
+		</dl>
+	<% end %>
+</div>

@@ -1,0 +1,27 @@
+<% @page_title = 'Path Revisions' %>
+
+<div id="content">
+  
+  <div class="breadcrumbs"><%= path_breadcrumbs(params[:path], true) %></div>
+  
+  <h2>Revision log for <%= params[:path].to_s -%></h2>
+  
+  <table class="listing" id="revision-log">
+    <tr>
+      <th>Date</th>
+      <th>Changeset</th>
+      <th>Author</th>
+      <th>Log</th>
+    </tr>
+    <% @changes.each do |change| %>
+    <tr>
+      <td><%= link_to change.changeset.created_at.strftime("%m/%d/%Y %H:%M"), :action => 'view_file', 
+                :path => params[:path], :rev => change.revision -%></td>
+      <td><%= link_to change.revision, :action => 'show_changeset', 
+                :revision => change.revision -%></td>
+      <td><%= change.changeset.author -%></td>
+      <td style="width: 65%;"><%= change.changeset.log -%></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

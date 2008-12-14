@@ -1,0 +1,9 @@
+<div id="content">
+<h1>Releases for <%= current_project.name %></h1>
+
+<% for release in Release.find(:all, :conditions => ["project_id = ?", current_project.id]) %>
+<h2><%= release.name %> (<%= link_to "download", release.download_url %>) <% if (current_user and current_user.rights_for(current_project) and current_user.rights_for(current_project).project_admin) %><%= link_to "Edit", :action => "edit", :id => release.id %> <%= link_to "Delete", {:action => "delete", :id => release.id}, :confirm => "Are you sure you want to delete this release ?" %><% end %></h2>
+<% end %>
+
+<% if (current_user and current_user.rights_for(current_project) and current_user.rights_for(current_project).project_admin) %><%=link_to "Create new release", :action => "create" %><% end %>
+</div>

@@ -1,0 +1,84 @@
+                                  Welcome to Collaboa
+                                =======================
+                          
+  CONTENTS
+  --------
+  1. About
+  2. Requirements
+  3. Installation & Upgrading
+  4. Running tests
+  5. Authors
+  6. Acknowledgments
+
+
+1. About
+--------
+              
+The goal of Collaboa is to be a collaborative tool for developers using Subversion. 
+
+Currently, only the following features are available:
+* Repository browsing
+* Changeset viewer
+* Issue tracking
+* Milestone management
+
+Thanks to Rails, the underlying framework, it runs on a number of web servers 
+supporting both FastCGI and plain CGI. Because of the speed improvements over plain 
+CGI, FastCGI is the preferred environment to run it in. The developer is known to 
+have a personal taste for "Lighttpd":http://lighttpd.net as a web server, but that 
+shouldn't stop you from using anything else, like Apache.
+
+### A little background...
+
+Colloboa has been heavily influenced by "Trac":http://projects.edgewall.com/trac/, 
+which showed the world how nicely version and bug tracking could be integrated. 
+Hopefully Colloboa still has a place in the world because of its different feature 
+set (although it may not be quite there yet).
+
+You can find more info on http://collaboa.org along with official releases.
+If you want to report a bug or submit a patch (both greatly appreciated) you can
+visit the "Collaboa for Collaboa" at http://dev.collaboa.org
+
+
+2. Requirements
+---------------
+
+Subversion 1.2.x with the Ruby SWIG bindings installed (see INSTALL)
+Rails 1.1.6+
+
+
+3. Install
+----------
+
+Please see INSTALL & UPGRADE    
+
+
+4. Running tests
+----------------
+The unit and functional tests expect the svn dump located in
+./lib/actionsubversion/test/fixtures/data_for_tests.svn to be loaded in the repository located
+at tmp/test_repos. You can load it with rake repository:test:prepare or just let it happen when you run rake test.
+
+
+5. Authors
+----------
+
+Collaboa is maintained and developed by Johan Sørensen. You can find out more about him
+at http://johansorensen.com/ or read his blog at http://theexciter.com. You can also send
+an email to johan at johansorensen.com.
+
+Contributions has been made by the following people:
+* Jean-Philippe Bougi
+* Jason Garber
+
+
+6. Acknowledgments
+-------------------
+Collaboa contains a few shamefully lifted codesnippets from the Bugtrack application made by 
+Kent Sibilev. Specifically things related to creating TicketChange logs. You can find out more 
+about Kent's excellent bugtracker at http://rubyforge.org/projects/bugtrack
+
+
+Tom Clarke for his contributions to Collaboa. Due to him having slightly different goals, he 
+decided to fork Collaboa project into Titra (http://lists.u2i.com/mailman/listinfo/titra-development)
+

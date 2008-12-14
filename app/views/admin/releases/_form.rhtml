@@ -1,0 +1,19 @@
+<%= error_messages_for 'release' %>
+
+<% if params[:action] == 'edit' -%>
+  <%= form_tag :action => 'edit', :id => @release.id %>
+<% else -%>
+  <%= form_tag -%>
+<% end -%>
+<fieldset>
+  <legend>Edit release</legend>
+
+  <label class="first">Project:<br>
+  <%= collection_select("release", "project_id" ,@projects, "id", "name") -%></label>
+
+  <label class="first">Name of this release (eg 0.7.5): 
+  <%= text_field 'release', 'name' -%></label>
+
+  <input type="submit" value="Edit release" class="submit">
+
+</form>

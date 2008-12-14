@@ -1,0 +1,14 @@
+<div id="content">
+
+<fieldset>
+<%= error_messages_for 'component' %>
+
+<%= form_tag :action => 'create' %>
+
+<label>Name of this component (eg 0.7.5): 
+<%= text_field 'component', 'name' -%></label>
+
+<p><%= submit_tag 'Save changes' %></p>
+
+</fieldset>
+</div>

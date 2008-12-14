@@ -1,0 +1,33 @@
+<%= error_messages_for 'project' %>
+
+<% url = params[:action] == 'edit' ? {:name => @project, :action => 'edit', :id => @project.id} : nil -%>
+  <% form_for :project, :url => url do |f| %>
+<fieldset>
+  <legend><%= params[:action] == 'edit' ? 'Edit' : 'Create' -%> project</legend>
+
+  <p><label class="first">Name
+  <%= f.text_field 'name' -%></label></p>
+
+  <label class="first">Repository: 
+  <%= f.collection_select("repository_id", @repositories, "id", "name", :include_blank => true) -%></label>
+
+  <label class="first">Path in Repository: 
+  <%= f.text_field "root_path" -%></label>
+
+  <%= observe_field  :project_root_path, 
+                      :frequency => 1, 
+                      :update => 'test-result', 
+                      :url => {:action => 'test_root_path' },
+                      :with => "'repository_id=' + escape($F('project_repository_id')) + '&root_path=' + escape($F('project_root_path'))" -%>
+
+	<div id="test-result"> </div>
+
+  <p><label class="inline">
+  <%= f.check_box 'closed', :class=>"checkbox"  %> Closed?</label></p>
+
+  <p><label>Info 
+  <%= f.text_area 'info' -%></label></p>
+
+  <input type="submit" value="Edit project" class="submit">
+  </fieldset>
+<% end %>

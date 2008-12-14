@@ -1,0 +1,8 @@
+.xml .normal {}
+.xml .namespace { color: #B66; font-weight: bold; }
+.xml .tag { color: #900; }
+.xml .comment { color: #999;  }
+.xml .punct { color: #369; font-weight: bold; }
+.xml .string { color: #007200; }
+.xml .number { color: #3387CC; }
+.xml .attribute { color: #b85; }

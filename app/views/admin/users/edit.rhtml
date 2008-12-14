@@ -1,0 +1,14 @@
+<% @page_title = "Edit User" %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187; <%= link_to 'Users', :action => 'index' -%></li>
+      <li>&#187; Editing User</li>
+    </ul>
+  </div>
+
+  <%= render :partial => 'form' %>
+</div>
+

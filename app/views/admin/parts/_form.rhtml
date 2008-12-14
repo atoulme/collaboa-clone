@@ -1,0 +1,7 @@
+<%= error_messages_for 'part' %>
+
+<label class="first">Project:<br>
+<%= collection_select("part", "project_id", @projects, "id", "name") -%></label>
+
+<label class="first">Name of this part (eg 'User Interface'):
+<%= text_field 'part', 'name' -%></label>

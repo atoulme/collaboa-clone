@@ -1,0 +1,7 @@
+<div id="content">
+<h1>Components</h1>
+<% for component in Part.find(:all, :conditions => ["project_id = ?", current_project.id]) %>
+<h2><%= component.name %> <%= link_to "Edit", :action => "edit", :id => component.id %> <%= link_to "Delete", {:action => "delete", :id => component.id}, :confirm => "Are you sure you want to delete this component ?" %></h2>
+<% end %>
+<%= link_to "Create new component", :action => "create" %>
+</div>

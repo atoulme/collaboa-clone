@@ -1,0 +1,2 @@
+module TextReportHelper
+end

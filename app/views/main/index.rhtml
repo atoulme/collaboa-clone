@@ -1,0 +1,17 @@
+<div id="content">
+<% if !current_project %>
+<!-- some static text for now, we will think of somehing smart later on. -->
+<h1>Welcome to the <%= FORGE_NAME %>.</h1><br/>
+<br/>
+<h2>Available Projects</h2>
+		<dl>
+			<% @projects.each do |project| %>
+				<dt class="project-name"><%= link_to h(project.name), :controller => 'main', :project => project  -%></dt>
+				<dd class="project-info"><%= textilize project.info -%></dd>
+			<% end %>
+		</dl>
+<% else %>
+<%= textilize current_project.info %>
+
+<% end %>
+</div>

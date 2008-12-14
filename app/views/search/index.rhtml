@@ -1,0 +1,14 @@
+<% @page_title = 'Search' %>
+
+<div id="content">
+  
+  <% form_tag('', :method => 'get') do -%>
+    <label>Search: <input name="q" type="text" value="<%= params[:q] -%>" size="120"/></label>
+         <label class="checkbox">in changesets? <%= check_box_tag 'changesets', 1, params[:changesets], {:class => 'checkbox'} -%></label>
+   <input type="submit" value="Search" class="smallsubmit" /> 
+    
+  <% end -%>
+  
+  <%= render :partial => "item", :collection => @found_items %>
+
+</div>

@@ -1,0 +1,13 @@
+<%= error_messages_for 'milestone' %>
+
+<label class="first">Project:<br>
+<%= collection_select("milestone", "project_id" ,@projects, "id", "name") -%></label>
+
+<label>Name of this milestone (eg 0.7.5): 
+<%= text_field 'milestone', 'name' -%></label>
+
+<label>A short description or other info you want displayed (optional): 
+<%= text_area 'milestone', 'info' -%></label>
+
+<label class="first">Due date</label>
+<%= datetime_select 'milestone', 'due_at', :include_blank => true -%></label>

@@ -1,0 +1,3 @@
+module RssHelper
+
+end

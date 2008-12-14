@@ -1,0 +1,20 @@
+development:
+  adapter: mysql
+  database: collaboa_development
+  host: localhost
+  username: root
+  password: 
+
+production:
+  adapter: mysql
+  database: collaboa_production
+  host: localhost
+  username: root
+  password: 
+
+test:
+  adapter: mysql
+  database: collaboa_test
+  host: localhost
+  username: root
+  password: 

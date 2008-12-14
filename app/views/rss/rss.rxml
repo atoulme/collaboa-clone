@@ -1,0 +1,19 @@
+xml.instruct!
+xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
+  xml.channel do 
+    xml.title(@rss_title)
+    xml.link(url_for :controller => "main", :only_path => false)
+    xml.description(@rss_title)
+    @items.each { |item|
+      xml.item do 
+        xml.title(h(truncate(item[:title], 100)))
+        @project = item[:project]
+        xml.description(format_and_make_links(item[:content]) + item[:changes].to_s)
+        xml.pubDate(item[:date].strftime("%a, %d %b %Y %H:%M:%S %Z"))
+        xml.tag!("dc:creator", item[:author])
+        xml.guid("Collaboa-#{item[:date].to_i}", "isPermaLink" => "false")
+        xml.link(item[:link])
+      end
+    }
+  end
+end

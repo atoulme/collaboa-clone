@@ -1,0 +1,6 @@
+ins { text-decoration: none; background-color: #ff0; color: #000; }
+del { text-decoration: line-through; color: #f00; }
+
+div>ins, ul>ins, div>del, ul>del, body>ins, body>del { display: block; }
+
+

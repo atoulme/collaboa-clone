@@ -1,0 +1,65 @@
+<% @page_title = 'Tickets' %>
+
+<div id="content">
+<h1>Tickets</h1>
+<%= render :partial => 'filter' %>
+
+<table class="listing" id="tickets"> 
+<thead>
+  <tr>
+    <%= sort_header_tag('id', :caption => 'Ticket', :title => 'Sort by ticket #', :class => 'ticket-number') %>
+    <%= sort_header_tag('summary', :class => 'ticket-summary') %>
+    <%= sort_header_tag('status_id', :caption => 'Status', :title => 'Sort by status', :class => 'ticket-status') %>
+    <%= sort_header_tag('severity_id', :caption => FIELD_NAME['Severity'], :title => 'Sort by ' + FIELD_NAME['Severity'].downcase, :class => 'ticket-severity') %>
+    <%= sort_header_tag('project_id', :caption => 'Project', :title => 'Sort by project name', :class => 'ticket-project') unless params[:project_name] -%>
+    <%= sort_header_tag('part_id', :caption => FIELD_NAME['Part'], :title => 'Sort by ' + FIELD_NAME['Part'].downcase, :class => 'ticket-part') %>
+    <%= sort_header_tag('milestone_id', :caption => 'Milestone', :title => 'Sort by milestone', :class => 'ticket-milestone') %>
+    <%= sort_header_tag('release_id', :caption => 'Release', :title => 'Sort by release', :class => 'ticket-release') %>
+    <%= sort_header_tag('created_at', :caption => 'Created', :title => 'Sort by creation date', :class => 'ticket-created') %>
+		<%= sort_header_tag('assigned_user_id', :caption => 'Assigned', :title => 'Sort by assigned user', :class => 'ticket-assigned-to') %>
+  </tr>
+</thead>
+<tbody>
+<% @tickets.cycle do |ticket, css| %>
+  <tr class="<%= css -%>">
+    <td class="ticket-number">
+    <%= link_to "##{ticket.id}", :action => 'show', :id => ticket.id -%>
+    <% if ticket.child_tickets.length > 0 %>
+         <span id="show_<%= ticket.id %>" style="display: inline; "> 
+	 <%= link_to_remote "<b>(#{ticket.child_tickets.length})</b>",
+            :url => { :action => "child_tickets", :id => ticket.id, :style => css },
+            :update => "ticket_#{ ticket.id }",
+            :complete => "$('hide_#{ticket.id}').style.display='inline';$('show_#{ticket.id}').style.display='none';" -%> 
+         </span>
+  
+         <span id="hide_<%= ticket.id %>" style="display: none">
+         <% update_function = update_element_function(
+               "ticket_#{ticket.id}", :empty => true ) -%>
+         <% show_show = update_element_function(
+               "ticket_#{ticket.id}", :empty => true ) -%>
+         <%= link_to_function "<b>(-)</b>", "#{update_function};$('hide_#{ticket.id}').style.display='none';$('show_#{ticket.id}').style.display='inline';" %>
+         </span>
+     <% end %>
+ 
+    </td>
+    <td class="ticket-summary"><%= link_to h(ticket.summary), :action => 'show', :id => ticket.id  -%></td>
+    
+    <td class="ticket-status"><%= ticket.status_name -%></td>
+    <td class="ticket-severity"><%= ticket.severity_name unless ticket.severity_name.nil? -%></td>
+    <% unless params[:project_name] -%>
+	    <td class="ticket-project"><%= ticket.project.name -%></td>
+    <% end -%>
+    <td class="ticket-part"><%= ticket.part_name unless ticket.part.nil? -%></td>
+    <td class="ticket-milestone"><%= ticket.milestone_name unless ticket.milestone_name.nil? -%></td>
+    <td class="ticket-release"><%= ticket.release_name unless ticket.release_name.nil? -%></td>
+    <td class="ticket-created"><%= ticket.created_at.strftime("%m/%d/%Y") -%></td>
+		<td class="ticket-assigned-to"><%= ticket.assigned_user.login unless ticket.assigned_user.nil? -%></td>
+  </tr>
+  <tr>
+    <td colspan="9" id="ticket_<%=ticket.id -%>" style="padding: 0 0 0 0">
+    </td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>

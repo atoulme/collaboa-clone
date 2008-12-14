@@ -1,0 +1,30 @@
+<% @page_title = 'Showing changeset ' + @changeset.revision.to_s %>
+
+<div id="content">
+<div class="breadcrumbs">
+  <ul>
+    <li><%= link_to 'Changesets', :action => 'changesets' -%></li>
+    <li>&#187; Changeset <%= @changeset.revision -%></li>
+  </ul>
+</div>
+
+  <h1>Changeset <%= @changeset.revision -%></h1>
+  <div class="log"><%= format_and_make_links(@changeset.log) -%></div>
+  <ul class="changes">
+    <li><strong>Author:</strong> <%= @changeset.author -%></li>
+    <li><strong>Date:</strong> <%= @changeset.revised_at.strftime('%A %B %d %H:%M:%S %Y') -%> 
+    (<%= distance_of_time_in_words(@changeset.revised_at, Time.now) %> ago)</li>
+  </ul>
+
+  <h2>Affected files:</h2>
+  <ul class="changes">
+  <%= render :partial => "change", :collection => @changeset.changes %>
+  </ul>
+
+  <% @files_to_diff.each_with_index do |diff, idx| %>
+    <a name="<%= diff.path -%>"></a>
+    <h3><%= diff.path %>:</h3>
+    <%= render_diff(diff.unified_diff) %>
+  <% end %>
+
+</div>

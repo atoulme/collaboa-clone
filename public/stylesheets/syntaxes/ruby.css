@@ -1,0 +1,17 @@
+.ruby .normal { color: #000;}
+.ruby .comment { color: #999; }
+.ruby .keyword { color: #000; font-weight: bold; }
+.ruby .method { color: #900; font-weight: bold;}
+.ruby .class { color: #900; font-weight: bold;}
+.ruby .module { color: #050; }
+.ruby .punct { color: #555; font-weight: bold; }
+.ruby .symbol { color: #900; }
+.ruby .string { color: #007200; }
+.ruby .char { color: #F07; }
+.ruby .ident { color: #000; }
+.ruby .constant { color: #900; }
+.ruby .regex { color: #B85; }
+.ruby .number { color: #3387CC; }
+.ruby .attribute { color: #000; }
+.ruby .global { color: #900; }
+.ruby .expr { color: #229; }

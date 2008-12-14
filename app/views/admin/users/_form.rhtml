@@ -1,0 +1,23 @@
+<%= error_messages_for 'user' %>
+
+<% if params[:action] == 'edit' -%>
+  <%= form_tag :action => 'edit', :id => @user.id %>
+<% else -%>
+  <%= form_tag %>
+<% end -%>
+<fieldset>
+
+  <h4>Permissions</h4>
+  <ul>
+    <li><%= check_box 'user', 'view_changesets', :style => 'width:auto;display:inline;' %> View Changesets</li>
+    <li><%= check_box 'user', 'view_code', :style => 'width:auto;display:inline;' %> View Code</li>
+    <li><%= check_box 'user', 'view_milestones', :style => 'width:auto;display:inline;' %> View Milestones</li>
+    <li><%= check_box 'user', 'view_tickets', :style => 'width:auto;display:inline;' %> View Tickets</li>
+    <li><%= check_box 'user', 'create_tickets', :style => 'width:auto;display:inline;' %> Create Tickets</li>
+    <li><%= check_box 'user', 'admin', :style => 'width:auto;display:inline;' %> Admin</li>
+  </ul>
+
+  <%= submit_tag params[:action] == 'edit' ? 'Edit user' : 'Create User' %>
+</fieldset>
+
+</form>

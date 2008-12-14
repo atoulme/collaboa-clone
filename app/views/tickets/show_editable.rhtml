@@ -1,0 +1,6 @@
+<%= text_area('ticket', 'content', :rows => 12) -%>
+<%= link_to_remote "<b>Cancel</b>",
+            :loading => "Element.show('indicator.details')",
+            :loaded => "Element.hide('indicator.details')",
+            :url => { :action => "_details_area", :id => @ticket.id },
+            :update => "editarea" -%><%= image_tag( "/images/indicator.gif", :id => 'indicator.details', :style => "display:none" ) %>

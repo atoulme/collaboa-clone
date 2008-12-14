@@ -1,0 +1,35 @@
+<% @page_title = 'Parts' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Parts</li>
+    </ul>
+  </div>
+  
+  <h2>Current Parts:</h2>
+  <dl>
+  <% @projects.select {|project| project.parts.any? }.each do |project| %>
+		<dt><%= project.name %></dt>
+		<% project.parts.each do |part| %>
+			<dd>
+				<ul>
+		    <li>
+		      <%= link_to part.name, :action => 'edit', :id => part.id %> 
+		      <small><%= link_to 'delete', {:action => 'delete', :id => part.id}, :confirm => 'Really delete this part?', :method => 'post' %></small>
+		    </li>
+				</ul>
+			</dd>
+		<% end %>
+  <% end %>
+  </dl>
+
+	<% form_tag do %>
+		<fieldset>
+		  <legend>Add part</legend>
+			<%= render :partial => 'form' -%>
+			<%= submit_tag 'Add Part', :class => 'submit' %>
+		</fieldset>
+	<% end %>
+</div>

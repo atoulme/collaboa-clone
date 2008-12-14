@@ -1,0 +1,20 @@
+ 	<table>
+    <tr>
+	    <td>Status:</td>
+      <td><%= collection_select 'ticket', 'status_id', @status, 'id', 'name' -%></td>
+      <td>Affected Release:</td>
+      <td><%= collection_select 'ticket', 'release_id', @releases, 'id', 'name', { :include_blank => true } -%></td>
+    </tr>
+    <tr>
+      <td><%= FIELD_NAME['Severity'] %>:</td>
+      <td><%= collection_select 'ticket', 'severity_id', @severities, 'id', 'name' -%></td>
+      <td>Target Milestone:</td>
+      <td><%= collection_select 'ticket', 'milestone_id', @milestones, 'id', 'name', { :include_blank => true } -%></td>
+    </tr>
+    <tr>
+      <td><%= FIELD_NAME['Part'] %>:</td>
+      <td><%= collection_select 'ticket', 'part_id', @parts, 'id', 'name', { :include_blank => true } -%></td>
+			<td>Assigned To:</td>
+			<td ><%= collection_select 'ticket', 'assigned_user_id', @users, 'id', 'login', { :include_blank => true } -%></td>
+    </tr>
+  </table>

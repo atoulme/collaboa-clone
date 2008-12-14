@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="robots" content="all" />
+<meta http-equiv="imagetoolbar" content="false" />
+<meta name="MSSmartTagsPreventParsing" content="true" />
+<title><%= FORGE_NAME %> - <%= @page_title %></title>
+<% if current_project %>
+<link rel="alternate" type="application/rss+xml" title="Project <%= current_project.name %> changesets" href="<%= url_for :controller => 'rss', :action => 'changesets' %>" />
+<link rel="alternate" type="application/rss+xml" title="Project <%= current_project.name %> tickets" href="<%= url_for :controller => 'rss', :action => 'tickets' %>" />
+<link rel="alternate" type="application/rss+xml" title="Project <%= current_project.name %> feed" href="<%= url_for :controller => 'rss', :action => 'index' %>" />
+<% end -%>
+
+<%= stylesheet_link_tag 'screen' %>
+<% if params[:controller] == 'repository' && params[:action] == 'view_file' %>
+  <%= stylesheet_link_tag '/stylesheets/syntaxes/ruby' %>
+  <%= stylesheet_link_tag '/stylesheets/syntaxes/xml' %>
+  <%= stylesheet_link_tag '/stylesheets/syntaxes/yaml' %>
+<% end %>
+<%= javascript_include_tag :defaults %>
+
+</head>
+<body>
+<div id="container">
+<div id="header">
+    <div style="float:right;width:300px;color:white;text-align: right;padding:.5em;">      
+      <% if !current_user %>
+        <p><small><%= link_to 'Login', :controller => 'main', :action => 'login' -%></small></p>
+      <% else %>
+        <p><small>Logged in as <%= current_user.login %> 
+          (<%= link_to 'Logout', :controller => 'main', :action => 'logout' -%>)</small></p>
+      <% end %>
+    </div>
+    
+    <div id="logo"><%= link_to(image_tag("logo.png", :alt => "Home"), '/main') %></div>
+    <% if current_project %>
+    <h1><%= link_to current_project.name, :controller => 'main', :project => current_project %></h1>
+    <% end %>
+    <div id="menu">
+      <ul>
+        <%if current_project %>
+          <%= menu_item_with_style 'Releases', {:controller => 'releases', :action => 'index', :project => current_project } -%> 
+           <% if Collaboa::CONFIG.subversion_support && (current_project && current_project.repository) -%>
+             <%= menu_item_with_style('Changesets', :controller => 'repository', :action => 'changesets', :project => current_project) %>
+           <% end -%>
+           <% if Collaboa::CONFIG.subversion_support && (current_project && current_project.repository) -%>
+             <%= menu_item_with_style 'SCM', {:controller => 'repository', :action => 'browse', :project => current_project, :path => current_project.root_path ? current_project.root_path.split("/") : nil}-%>
+           <% end -%>
+             <%= menu_item_with_style 'Milestones', {:controller => 'milestones', :action => 'index', :project => current_project } -%>
+             <%= menu_item_with_style 'Tickets', {:controller => 'tickets', :action => 'index', :project => current_project } -%>
+             <%= menu_item_with_style 'New Ticket', {:controller => 'tickets', :action => 'new', :project => current_project } -%>
+	     <%= menu_item_with_style 'Search', {:controller => 'search'} -%></li>
+        <% end %>
+        <% if Project.show_for_user(current_user).length > 1 %>
+        <li class="right"><%= menu_item_with_style 'Projects', '/main/projects', true -%></li>
+        <% end -%>
+        <% if current_user && current_project && current_user.rights_for(current_project).project_admin %>
+          <li class="right"><%= menu_item_with_style "Project Admin", {:controller => 'main', :action => 'edit', :project => current_project}, true -%></li>
+        <% end %>
+        <% if current_user && current_user.admin? -%>
+        <li class="right"><%= menu_item_with_style "Admin", {:controller => '/admin/dashboard', :action => 'index'}, true -%></li>
+        <% end -%>
+     </ul>
+    </div>
+</div>
+<% if flash[:notice] %>
+<div id=notice><span><%= flash[:notice] %></span></div>
+<% end %>
+<%= @content_for_layout %>
+<div class="push"></div>
+</div>
+<div id="footer">
+
+  <% if current_project %>
+  <p class="rss-links">      
+      <%= link_to image_tag("rss.png") + ' RSS for Changesets', :controller => 'rss', :action => 'changesets' %>
+    </p>
+  <p class="rss-links">      
+      <%= link_to image_tag("rss.png") + ' RSS for Tickets', :controller => 'rss', :action => 'tickets' %>
+    </p>
+  <% end -%>
+
+  <div id="footer_links">
+    
+  </div>
+  <div id="powered_by">
+  Powered by <%= link_to "Collaboa", "http://www.collaboa.org" %>
+  </div>
+</div>
+
+
+
+</body>
+</html>

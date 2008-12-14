@@ -1,0 +1,8 @@
+<% @page_title = 'Milestones' %>
+
+<div id="content">
+  <h1>Milestones</h1>
+  <%= render :partial => 'milestone', :collection => @milestones  %> 
+</div>
+
+<% if (current_user and current_user.rights_for(current_project) and current_user.rights_for(current_project).project_admin) %><%= link_to "Create new milestone", :action => "create" %><% end %>

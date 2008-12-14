@@ -1,0 +1,35 @@
+<% @page_title = 'Milestones' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Milestones</li>
+    </ul>
+  </div>
+
+  <h2>Current Milestones:</h2>  
+  <dl>
+  <% @projects.select {|project| project.milestones.any? }.each do |project| %>
+		<dt><%= project.name %></dt>
+		<% project.milestones.each do |milestone| %>
+			<dd>
+				<ul>
+		    <li>
+		      <%= link_to milestone.name, :action => 'edit', :id => milestone.id %> 
+      <small><%= link_to 'delete', {:action => 'delete', :id => milestone.id}, :confirm => 'Really delete this milestone?', :method => 'post' -%></small>
+		    </li>
+				</ul>
+			</dd>
+		<% end %>
+  <% end %>
+  </dl>
+
+  <%= form_tag -%>
+    <fieldset>
+      <legend>Create new milestone</legend>
+      <%= render :partial => 'form' -%>
+      <input type="submit" value="Create" class="submit">
+    </fieldset>
+  </form>
+</div>

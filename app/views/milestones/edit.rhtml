@@ -1,0 +1,17 @@
+<div id="content">
+<%= error_messages_for 'milestone' %>
+
+<%= form_tag :action => 'edit', :id => @milestone.id %>
+
+<label>Name of this milestone (eg 0.7.5): 
+<%= text_field 'milestone', 'name', :value => @milestone.name -%></label>
+
+<label>A short description or other info you want displayed (optional): 
+<%= text_area 'milestone', 'info', :value => @milestone.info -%></label>
+
+<label class="first">Due date</label>
+<%= datetime_select 'milestone', 'due_at', :include_blank => true, :value => @milestone.due_at -%></label>
+
+<p><%= submit_tag 'Save changes' %></p>
+</div>
+

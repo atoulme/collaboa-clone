@@ -1,0 +1,12 @@
+<% @page_title = 'Edit repository' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 <%= link_to 'Repositories', :controller => '/admin/repositories' %></li>
+    </ul>
+  </div>
+  
+  <%= render :partial => 'form' -%>
+</div>

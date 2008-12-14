@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+part1:
+  id: 1
+  name: Component 1
+  project_id: 1
+part2:
+  id: 2
+  name: Component 2
+  project_id: 1
+part_for_second_project:
+  id: 3
+  name: Component 3
+  project_id: 2

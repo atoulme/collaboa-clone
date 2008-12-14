@@ -1,0 +1,10 @@
+<div class="actions">
+  <p><%= link_to_function 'Filter tickets', 'Element.toggle(\'filter-selector\')' -%></p>
+</div>
+<div id="filter-selector"<%= ' style="display:none;"' unless have_filter_parameter? %> class="clearfix">
+	<%= filter_selector(@status, "Status") %>
+	<%= filter_selector(@severities, FIELD_NAME['Severity'], :severity) %>
+	<%= filter_selector(@milestones, "Milestone") %>
+	<%= filter_selector(@parts, FIELD_NAME['Part']) %>
+  <%= filter_selector(@users, "Assignment", :assigned_user, :login) %>
+</div>

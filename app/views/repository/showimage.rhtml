@@ -1,0 +1,7 @@
+<% @page_title = 'Browsing repository' %>
+
+<div id="content">
+  <div class="breadcrumbs"><%= path_breadcrumbs(params[:path]) %></div>
+  
+  <%= image_tag url_for( :action => 'send_data_to_browser', :path => params[:path]), :alt => @file.name %>
+</div>

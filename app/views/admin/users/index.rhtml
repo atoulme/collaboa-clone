@@ -1,0 +1,48 @@
+<% @page_title = 'Users' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Users</li>
+    </ul>
+  </div>
+  
+  <h2>Current Users:</h2>
+
+  <table class="listing" id="user_list">
+    <thead>
+      <th>User</th>
+      <% for project in Project.find(:all) %>
+        <th><%= project.name %></th>
+      <% end %>
+      <th>Admin</th>
+      <th>Actions</th>
+    </thead>
+ 
+<% form_for :users, :url => {:action => :rights_edits} do |f| %>  
+  <% @users.cycle do |user, css| %>
+    <% fields_for user, :index => user.id do |user_fields| %>
+      <tr class="<%= css -%>">
+        <td><%= user.login %></td>
+        
+        <% for project in Project.find(:all) %>
+          <% fields_for :rights, rights = user.rights_for(project, true)  do |rights_fields| %>
+            <td style="align: center"><%= rights_fields.check_box :project_admin, :index => rights.id %></td>
+          <% end %>
+        <% end %>
+        <td><%= user_fields.check_box :admin? %></td>
+        <td>
+          <%= link_to 'Edit', { :action => 'edit', :id => user.id }, :style => 'display: inline;' -%> 
+          <%= link_to('Delete', {:action => 'delete', :id => user.id}, :style => 'display: inline;', :confirm => 'Really delete user?', :method => 'post')  %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+
+ <input type="submit" value="Edit rights" class="submit">
+<% end %>
+
+<%= will_paginate(@users) %>
+</div>

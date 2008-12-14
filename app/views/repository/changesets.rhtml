@@ -1,0 +1,20 @@
+<% @page_title = 'Showing changesets' %>
+
+<div id="content">
+
+<% @changesets.each do |changeset| %>
+  <h2><%= link_to 'Changeset ' + changeset.revision.to_s, :action => 'show_changeset', :revision => changeset.revision %>:</h2>
+<ul class="changes">
+  <li><strong>Author:</strong> <%= changeset.author -%></li>
+  <li><strong>Date:</strong> <%= changeset.revised_at.strftime('%a %b %d %H:%M %Y') -%></li>
+</ul>
+  <div class="log-small"><%= format_and_make_links(changeset.log) -%></div>
+<% end %>
+
+<%= will_paginate(@changesets) %>
+<% if false #@changeset_pages.page_count > 1 %>
+	<div class="pagination">
+		<p>Page: <%= pagination_links(@changeset_pages) -%></p>
+	</div>
+<% end %>
+</div>

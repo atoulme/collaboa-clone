@@ -1,0 +1,15 @@
+<% @page_title = 'Browsing repository' %>
+
+<div id="content">
+  <div class="breadcrumbs"><%= path_breadcrumbs(params[:path]) %></div>
+
+  <h2>Unviewable file</h2>
+  <p>Couldn't find a mimetype to properly view this file with. If you wish you can try the links below
+      to download it in another format:</p>
+
+  <div id="download-alternate">
+    <h4>Download in other formats:</h4>
+    <p><%= link_to "raw", :format => "raw", :path => params[:path] -%>
+        | <%= link_to "text", :format => "txt", :path => params[:path] -%></p>
+  </div>
+</div>

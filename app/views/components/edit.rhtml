@@ -1,0 +1,10 @@
+<div id="content">
+<%= error_messages_for 'component' %>
+
+<%= form_tag :action => 'edit', :id => @component.id %>
+
+<label>Name of this component: 
+<%= text_field 'component', 'name', :value => @component.name -%></label>
+
+<p><%= submit_tag 'Save changes' %></p>
+</div>

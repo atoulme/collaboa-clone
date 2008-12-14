@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_release:
+  id: 1
+  name: "0.1"
+  project_id: 1
+another_release:
+  id: 2
+  name: "0.2"
+  project_id: 1
+release_for_second_project:
+  id: 3
+  name: "0.1"
+  project_id: 2

@@ -1,0 +1,24 @@
+<% 
+case item
+when Ticket
+	title = "Ticket ##{item.id}: #{item.summary}"
+	link = {:controller => 'tickets', :action => 'show', :id => item.id}
+	content = item.content
+when TicketChange
+	title = "Ticket ##{item.ticket_id} modified by #{item.author}"
+	link = {:controller => 'tickets', :action => 'show', :id => item.ticket_id}
+	content = item.comment
+when Changeset
+	title = "Changeset [#{item.revision}]"
+	link = {:controller => 'repository', :action => 'show_changeset', :revision => item.revision}
+	content = item.log
+end
+if @project
+	link.merge! :project_name => @project
+end
+%>
+
+<div class="search-result">
+  <h1><%= link_to(truncate(title, 70), link) %></h1>
+  <p><%= hilight_search_terms(simple_format(content), params[:q]) %></p>
+</div>

@@ -1,0 +1,49 @@
+The Subversion Ruby bindings
+============================
+
+The bindings for Ruby are available from Subversion 1.2 and up. Installation is fairly straight
+forward, as long as you meet the requirements of the svn bindings (see the INSTALL/NOTES in
+$SVN_SRC_DIR/subversion/bindings/swig).
+
+Be sure to note the requirements for the SWIG version in that file!
+
+The correct way to install the Ruby bindings once you've configured, maked and 
+installed subversion is (unfortunately this doesn't seem to be covered in the 
+current svn docs):
+
+$ make swig-rb
+$ make check-swig-rb (optional, but you probably want to run these tests)
+$ make install-swig-rb (as root)
+
+Configuring Collaboa
+====================
+
+1.  Copy (or rename) database.yml.sample to database.yml and set up the credentials and 
+    other database details you wish
+
+2.  Run the following
+    $ RAILS_ENV="production" rake db:schema:load
+
+3.  Run the following: 
+    $ RAILS_ENV="production" ruby db/default_content.rb
+    to create the minimal default content Collaboa needs to start with.
+
+4.  Start the server
+    $ ruby script/server webrick -e production
+
+5.  IMPORTANT! Change your admin password by logging in with:
+      Username: admin
+      Password: admin
+    And go to Admin > Users > edit "admin" (or add a user with admin privileges and delete "admin")
+
+6.  Set up your repository.  Go to Admin > Repositories and create a new repository with a name
+    and local filesystem path.  Collaboa will report "Success!" when you enter a valid path.
+    Submit and it will show under Current Repositories.
+
+7.  Before you go anywhere else, you should run the following:
+    $ ./script/repository_syncer 
+    It will default to using your production settings. For options, run it with the --help flag
+    
+    Collaboa will automatically sync with your repository when it detects a change, but for the 
+    first run you want to run this to avoid timeouts in case your repository is fairly
+    big.

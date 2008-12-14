@@ -1,0 +1,22 @@
+<% @page_title = 'Create new repository' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Repositories</li>
+    </ul>
+  </div>
+  
+  <h2>Current Repositories:</h2>
+  <ul>
+  <% @repositories.each do |repos| %>
+    <li>
+      <%= link_to repos.name, :action => 'edit', :id => repos.id  -%> 
+      <small><%= link_to 'delete', {:action => 'delete', :id => repos.id}, :confirm => 'Really delete this repository (will NOT delete it from the filesystem, just from Collaboa)?', :method => 'post' %></small>
+      </li>
+  <% end %>
+  </ul>
+
+  <%= render :partial => 'form' -%>
+</div>

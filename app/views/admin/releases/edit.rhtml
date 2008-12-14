@@ -1,0 +1,14 @@
+<% @page_title = 'Edit release' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 <%= link_to 'Releases', :action => 'index' -%></li>
+      <li>&#187 Editing Release</li>
+    </ul>
+  </div>
+
+
+  <%= render :partial => 'form' %>
+</div>

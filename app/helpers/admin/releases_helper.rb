@@ -1,0 +1,2 @@
+module Admin::ReleasesHelper
+end

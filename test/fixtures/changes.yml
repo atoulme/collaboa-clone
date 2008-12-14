@@ -1,0 +1,49 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+change1_for_rev_1:
+  id: 1
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: file1.txt
+
+change2_for_rev_1:
+  id: 2
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: html
+
+change3_for_rev_1:
+  id: 3
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: html/html_file.html
+  
+change4_for_rev_1:
+  id: 4
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: html_file.html
+  
+change5_for_rev_1:
+  id: 5
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: ruby.rb
+  
+change6_for_rev_1:
+  id: 6
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: urandom.bin
+  
+change7_for_rev_1:
+  id: 7
+  changeset_id: 1
+  revision: 1
+  name: A
+  path: xaa

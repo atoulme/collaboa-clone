@@ -1,0 +1,11 @@
+<%= format_and_make_links(@ticket.content) %>
+<b>
+  <%= link_to_remote "Edit",
+              :loading => "Element.show('indicator.details')",
+              :loaded => "Element.hide('indicator.details')",
+              :url => { :action => "show_editable", :id => @ticket.id },
+              :update => "editarea" -%><%= image_tag( "/images/indicator.gif", :id => 'indicator.details', :style => "display:none" ) %>
+  <% if current_user.rights_for(current_project) and current_user.rights_for(current_project).project_admin-%>
+    <%= link_to("Delete", {:project_name => @ticket.project, :action => "destroy", :id => @ticket}, {:method => 'post', :confirm => "Are you sure you want to delete this Ticket?"}) %>
+  <% end -%>
+</b>

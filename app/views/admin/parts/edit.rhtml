@@ -1,0 +1,19 @@
+<% @page_title = 'Edit Part' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 <%= link_to 'Parts', :action => 'index' -%></li>
+      <li>&#187 Editing part</li>
+    </ul>
+  </div>
+
+	<% form_tag do %>
+		<fieldset>
+		  <legend>Edit part</legend>
+			<%= render :partial => 'form' -%>
+			<%= submit_tag 'Edit Part', :class => 'submit' %>
+		</fieldset>
+	<% end %>
+</div>

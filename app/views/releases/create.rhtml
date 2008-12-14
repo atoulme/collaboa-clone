@@ -1,0 +1,16 @@
+<div id="content">
+<%= error_messages_for 'release' %>
+
+<%= form_tag :action => 'create' %>
+
+<label>Name of this release (eg 0.7.5): 
+<%= text_field 'release', 'name' -%></label>
+
+<label>A short description or other info you want displayed (optional): 
+<%= text_area 'release', 'info' -%></label>
+
+<label>Download URL for the release</label>
+<%= text_field 'release', 'download_url'  %>
+
+<p><%= submit_tag 'Create release' %></p>
+</div>

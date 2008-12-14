@@ -1,0 +1,19 @@
+<div id="content">
+<%= error_messages_for :category %>
+
+<% form_for :category do |f| -%>
+<p><label for="name">Name</label><br/>
+<%= f.text_field :name, :value => @category.name %></p>
+
+<p><label for="parent">Parent category</label><br/>
+<%= select("category", "parent", Category.find(:all).collect {|p| [ p.name, p.id ] }, { :include_blank => true }) %>
+
+<p><label for="description">Description (you can use Textile markup)</label><br/>
+<%= f.text_area :description, :value => @category.description %></p>
+
+<p><%= submit_tag 'Save changes' %></p>
+<% end -%>
+
+
+</div>
+

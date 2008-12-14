@@ -1,0 +1,44 @@
+<% @page_title = 'Edit Milestone' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 <%= link_to 'Projects', :action => 'index' -%></li>
+      <li>&#187 Editing Project</li>
+    </ul>
+  </div>
+
+
+  <%= render :partial => 'project_form' -%>
+  
+  <h2>Contributors</h2>
+	<p>These users will see this project under <%= link_to 'Available Projects', :controller => "project", :action => "index" %> and can be assigned tickets (except the Public user).</p>
+
+  <table class="listing" id="user_list">
+    <thead>
+      <th>User</th>
+      <th>Actions</th>
+    </thead>
+  <% @project.users.cycle do |user, css| %>
+    <tr class="<%= css -%>">
+      <td><%= user.login %></td>
+
+      <td><%= link_to('Remove Mapping', {:project => @project, :delete_mapping => user.id}, :style => 'display: inline;', :method => 'post' ) %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <% form_tag :project => @project, :action => 'edit' do %>
+
+  <fieldset>
+    <legend>Add users</legend>
+
+    <label class="first">User:
+    <%= collection_select("user_project", "user_id" ,@users, "id", "login") -%></label>
+
+    <%= submit_tag 'Add User', :name => :add_user %>
+  </fieldset>
+  
+  <% end %>
+</div>

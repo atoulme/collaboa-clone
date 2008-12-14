@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="MyApp" xmlns:typens="http://my.company.com/app/wsapi" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://my.company.com/app/wsapi" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://my.company.com/app/wsapi">
+      <xsd:complexType name="StringArray">
+        <xsd:complexContent>
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType"/>
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+  <message name="GetOptions">
+    <part name="username" type="xsd:string"/>
+    <part name="date" type="xsd:string"/>
+  </message>
+  <message name="GetOptionsResponse">
+    <part name="return" type="typens:StringArray"/>
+  </message>
+  <message name="ShowTickets">
+    <part name="project_name" type="xsd:string"/>
+  </message>
+  <message name="ShowTicketsResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="UpdateEditableYaml">
+    <part name="changeton" type="xsd:string"/>
+  </message>
+  <message name="UpdateEditableYamlResponse">
+  </message>
+  <message name="GenerateReport">
+    <part name="daterange" type="xsd:string"/>
+    <part name="groups" type="xsd:string"/>
+    <part name="project_name" type="xsd:string"/>
+    <part name="billed" type="xsd:boolean"/>
+    <part name="username" type="xsd:string"/>
+  </message>
+  <message name="GenerateReportResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="SoFarToday">
+    <part name="user" type="xsd:string"/>
+    <part name="date" type="xsd:string"/>
+  </message>
+  <message name="SoFarTodayResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="GetEditableYaml">
+    <part name="daterange" type="xsd:string"/>
+    <part name="project_name" type="xsd:string"/>
+    <part name="username" type="xsd:string"/>
+  </message>
+  <message name="GetEditableYamlResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="AppendTill">
+    <part name="username" type="xsd:string"/>
+    <part name="message" type="xsd:string"/>
+    <part name="project" type="xsd:string"/>
+    <part name="ticket" type="xsd:string"/>
+    <part name="revision" type="xsd:int"/>
+    <part name="date" type="xsd:string"/>
+    <part name="time" type="xsd:string"/>
+  </message>
+  <message name="AppendTillResponse">
+  </message>
+  <message name="GetUsernames">
+  </message>
+  <message name="GetUsernamesResponse">
+    <part name="return" type="typens:StringArray"/>
+  </message>
+  <message name="GetProjects">
+  </message>
+  <message name="GetProjectsResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <message name="Append">
+    <part name="username" type="xsd:string"/>
+    <part name="message" type="xsd:string"/>
+    <part name="project" type="xsd:string"/>
+    <part name="ticket" type="xsd:string"/>
+    <part name="revision" type="xsd:int"/>
+    <part name="date" type="xsd:string"/>
+  </message>
+  <message name="AppendResponse">
+  </message>
+  <message name="Both">
+    <part name="username" type="xsd:string"/>
+    <part name="message" type="xsd:string"/>
+    <part name="project" type="xsd:string"/>
+    <part name="ticket" type="xsd:string"/>
+    <part name="revision" type="xsd:int"/>
+    <part name="date" type="xsd:string"/>
+    <part name="start_time" type="xsd:string"/>
+    <part name="end_time" type="xsd:string"/>
+  </message>
+  <message name="BothResponse">
+  </message>
+  <message name="GetProjectNames">
+  </message>
+  <message name="GetProjectNamesResponse">
+    <part name="return" type="typens:StringArray"/>
+  </message>
+  <message name="GetTicketsForProject">
+    <part name="project" type="xsd:string"/>
+  </message>
+  <message name="GetTicketsForProjectResponse">
+    <part name="return" type="xsd:string"/>
+  </message>
+  <portType name="MyAppTextReportPort">
+    <operation name="GetOptions">
+      <input message="typens:GetOptions"/>
+      <output message="typens:GetOptionsResponse"/>
+    </operation>
+    <operation name="ShowTickets">
+      <input message="typens:ShowTickets"/>
+      <output message="typens:ShowTicketsResponse"/>
+    </operation>
+    <operation name="UpdateEditableYaml">
+      <input message="typens:UpdateEditableYaml"/>
+      <output message="typens:UpdateEditableYamlResponse"/>
+    </operation>
+    <operation name="GenerateReport">
+      <input message="typens:GenerateReport"/>
+      <output message="typens:GenerateReportResponse"/>
+    </operation>
+    <operation name="SoFarToday">
+      <input message="typens:SoFarToday"/>
+      <output message="typens:SoFarTodayResponse"/>
+    </operation>
+    <operation name="GetEditableYaml">
+      <input message="typens:GetEditableYaml"/>
+      <output message="typens:GetEditableYamlResponse"/>
+    </operation>
+    <operation name="AppendTill">
+      <input message="typens:AppendTill"/>
+      <output message="typens:AppendTillResponse"/>
+    </operation>
+    <operation name="GetUsernames">
+      <input message="typens:GetUsernames"/>
+      <output message="typens:GetUsernamesResponse"/>
+    </operation>
+    <operation name="GetProjects">
+      <input message="typens:GetProjects"/>
+      <output message="typens:GetProjectsResponse"/>
+    </operation>
+    <operation name="Append">
+      <input message="typens:Append"/>
+      <output message="typens:AppendResponse"/>
+    </operation>
+    <operation name="Both">
+      <input message="typens:Both"/>
+      <output message="typens:BothResponse"/>
+    </operation>
+    <operation name="GetProjectNames">
+      <input message="typens:GetProjectNames"/>
+      <output message="typens:GetProjectNamesResponse"/>
+    </operation>
+    <operation name="GetTicketsForProject">
+      <input message="typens:GetTicketsForProject"/>
+      <output message="typens:GetTicketsForProjectResponse"/>
+    </operation>
+  </portType>
+  <binding name="MyAppTextReportBinding" type="typens:MyAppTextReportPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+    <operation name="GetOptions">
+      <soap:operation soapAction="/text_report/api/GetOptions"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="ShowTickets">
+      <soap:operation soapAction="/text_report/api/ShowTickets"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="UpdateEditableYaml">
+      <soap:operation soapAction="/text_report/api/UpdateEditableYaml"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GenerateReport">
+      <soap:operation soapAction="/text_report/api/GenerateReport"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="SoFarToday">
+      <soap:operation soapAction="/text_report/api/SoFarToday"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GetEditableYaml">
+      <soap:operation soapAction="/text_report/api/GetEditableYaml"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="AppendTill">
+      <soap:operation soapAction="/text_report/api/AppendTill"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GetUsernames">
+      <soap:operation soapAction="/text_report/api/GetUsernames"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GetProjects">
+      <soap:operation soapAction="/text_report/api/GetProjects"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="Append">
+      <soap:operation soapAction="/text_report/api/Append"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="Both">
+      <soap:operation soapAction="/text_report/api/Both"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GetProjectNames">
+      <soap:operation soapAction="/text_report/api/GetProjectNames"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+    <operation name="GetTicketsForProject">
+      <soap:operation soapAction="/text_report/api/GetTicketsForProject"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://my.company.com/app/wsapi" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="MyAppService">
+    <port name="MyAppTextReportPort" binding="typens:MyAppTextReportBinding">
+      <soap:address location="http://extranet.u2i.com/text_report/api"/>
+    </port>
+  </service>
+</definitions>

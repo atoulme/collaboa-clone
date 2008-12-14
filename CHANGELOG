@@ -1,0 +1,139 @@
+** SVN **
+
+* Added an "abstract" events timeline
+* Added repository handling in admin UI (with ajaxed path checks)
+* Added multiple repositories capability
+* Added multiple projects capability
+
+
+
+** 0.5.6 **
+
+* Don’t select “completed” milestones for the “Add to milestone” dropdown when creating new ticket
+
+* Added permissions for viewing milestones [jwa]
+
+* Make ./script/repository_syncer use less memory by running GC manually
+
+* Updated ActionSubversion to support the Subversion 1.3 API
+
+
+** 0.5.5 **
+
+* Added a simple search mechanism for tickets and changesets
+
+* Added next/prev links when showing a ticket
+
+* Handle milestone.info.nil? nicely [Oliver Legg]
+
+* Placed all admin related controller & views in /admin/
+
+* ActionSubversion: Guard against non-canonical repository paths
+
+* ActionSubversion: Fixed memory issues
+
+* Added "meta" info about the current dir being browsed
+
+* ActionSubversion: Added #get_node_entry for getting a single RepositoryNode object
+
+* ActionSubversion: Adding Base::fs_root(rev) for getting the root object from a given revision
+
+* Now accepting +rev+ params properly to get the file/path at the given revision, link to this revision when showing a changeset as well.
+
+* Added so that it is possible to get a listing of all past revisions when viewing a file
+
+* Make path_breadcrumbs not break path where multiple occurances of the same same occur [jon.tai@medsphere.com]
+
+* Make rss feeds work with urls like http://my.url:3455 [joevandyk@gmail.com]
+
+* Show some "meta info" about the file we're viewing in the browser
+
+* Encode email addresses in ticket authornames and make them clickable. [lucas@rufy.com]
+
+* Create/edit admin users from admin UI [sean@lowpro.ca]
+
+* Updated to edge rails (0.14/1.0)
+
+* Added db/default_content.rb as an attempt at an easy way to create initial content
+
+* Dropping development_structure.*.sql in favor of schema.rb
+
+* Bring various railsisms up to date (@params => params etc) [Lucas Carlson]
+
+* ActionSubversion: Objectified repository node entries 
+
+* Added so that NULL values in ticket associations are not dependent on mysql behaviour [Samuel Kvarnbrink]
+
+* Added PostgreSQL schema [Samuel Kvarnbrink]
+
+* Handle mime-types not found in the ext->mimetype hash
+
+* Attempt to avoid race conditions when syncing changesets
+
+* Fixed so that we don't diff binary files when showing a changeset
+
+* format_and_make_links for rss description as well
+
+* Better support for multiple apps and mod_ruby [shugo@ruby-lang.org]
+
+* Escape some html in ticket listing and be able to use textile in tickets+comments
+
+* Added migrations for easier updates of DB.
+
+* Adding User roles and permissions [Dan Willemsen].
+
+* Calling a model Version is a bad idea, renamed it to Release. Version causes all sorts of funny clashes with it being a reserved-ish word and all
+
+* ActionSubversion: Fixed so that you can't diff a dir (eg. when setting svn props on a dir in a changeset)
+
+* Upgraded misc. rails related files to 0.13
+
+* Changed so that controller picks up if svn:mime-type prop was there and converts (using iconv) it to utf8 [shugo@ruby-lang.org]
+
+* Added snazzy icons for status of affected files in a changeset
+
+* Updated Changeset.sync_changesets to reflect the changes below
+
+* Added ./script/repository_syncer for syncing the repos from the commandline.
+  Run ./script/repository_syncer --truncate-db --reload-db to update table schemes and re-sync 
+
+* ActionSubversion: Added so that copied & moved files/dirs gets detected properly.
+  Also, only copied_nodes, moved_nodes, deleted_nodes, updated_nodes & added_nodes are available as methods to get both files and dirs
+
+* Removed due dates in milestones (out of scope for collaboa)
+
+* Improved/fixed date/time display in changesets
+
+* Added sortable ticket tables
+
+* README updated to reflect the fact that we need to manually execute the SQL for creating a new admin user [Jeff Rose]
+
+* Updated .htaccess file [Jeff Rose]
+
+* Fix AdminController to delete the milestone and not the version, when clicking "delete" on a milestone
+
+* Make stylesheet links, image links, etc work properly in a non-vhost setup [shugo@ruby-lang.org]
+
+* Don't make render_diff helper go nuts when passed an empty udiff
+
+* HTMLescape rescue_exception_in_public output
+
+* Redirect to 'browse' action if no action (eg 'index') is given for RepositoryController
+
+* Escape log message in repos browser
+
+
+** 0.5 **
+
+* Milestones can be set as completed within the admin ui
+
+* Added links to the ticket filter (open/closed with milestone) from the milestone view
+
+* Renamed collaboa-conf.yml to repository.yml
+
+* changeset logs, ticket details and ticket comments will now link to a changeset 
+  or ticket if ticket #num or changeset #num (or changeset num, ticket num) is used 
+  in the text. Like this:
+  "blabla fixed in changeset #47" 
+    #=> blabla duplicate of <a href="example.com/tickets/42">ticket #42</a>
+    

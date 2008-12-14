@@ -1,0 +1,21 @@
+<% @page_title = 'Milestones' %>
+
+<div id="content">
+  <div class="breadcrumbs">
+    <ul>
+      <li><%= link_to 'Administration', :controller => 'dashboard' -%></li>
+      <li>&#187 Projects</li>
+    </ul>
+  </div>
+
+  <h2>Current Projects:</h2>
+  <ul>
+  <% @projects.each do |project| %>
+    <li><%= link_to project.name, :action => 'edit', :name => project -%> </li>
+  <% end %>
+  </ul>
+
+  <%= error_messages_for 'project' %>
+
+  <%= render :partial => 'project_form' %>
+</div>

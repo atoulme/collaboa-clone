@@ -1,0 +1,27 @@
+<h2><%= @project ? milestone.name : "#{milestone.project.name}: #{milestone.name}" -%>  <% if (current_user and current_user.rights_for(current_project) and current_user.rights_for(current_project).project_admin) %><%= link_to "Edit", :action => "edit", :id => milestone.id %><% end %></h2>
+<% if milestone.due_at %>
+  <div id="milestone-date">Due 
+  <% if milestone.due_at < Time.now -%>
+   <span style='color:red'><%= time_ago_in_words milestone.due_at %> ago</span>
+  <% else -%>
+   in <%= time_ago_in_words milestone.due_at %>
+  <% end -%>
+  </div>
+<% end %>
+
+<div id="milestone-info"><%= simple_format(milestone.info) if milestone.info %></div>
+
+  <div class="milestone-progress">
+    <div class="percent-completed" style="width: <%= milestone.completed_tickets_percent -%>%;"></div>
+  </div>
+
+  <p class="milestone-details">
+    <%= link_to "Closed tickets: #{milestone.closed_tickets}", 
+                              :controller => 'tickets', 
+                              :status => -1,
+                              :milestone => milestone.id  -%> (<%= milestone.completed_tickets_percent -%>% done) 
+      - <%= link_to "Open tickets: #{milestone.open_tickets}", 
+                              :controller => 'tickets', 
+                              :status => 1,
+                              :milestone => milestone.id  -%> 
+  </p>

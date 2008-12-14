@@ -1,0 +1,46 @@
+Legend:
+[ ] not done
+[*] done
+[+] in progess
+
+### General
+[*] RSS! [DONE]
+[*] General Admin interfaces [DONE]
+[+] Refine the overall design
+[ ] Beef up the Admin interface
+[ ] User/login/roles mangement
+[ ] Or enforce uft8 (using iconv)
+[ ] Clean up html markup + css
+[ ] Add indexes on db
+[ ] Cache things
+[ ] Work out some neat ConfigManager thingie, so Repository functions won't be enabled if no svn bindings are installed
+[ ] Add some sort of project title to the above, that goes in rss feeds, <title> etc
+[ ] Cache RSS
+
+### Repository browser
+[+] Create html/controller code for browsing at a specific revision
+[ ] check so that filesize is reasonable before sending it to the browser, error out if not
+[ ] Make more basic syntaxes for common filetypes
+[ ] Show revision and log info when viewing a file (+ diff with previous? + "back in time"?)
+
+### Changeset browser/viewer
+[ ] show/download one single udiff for a changeset
+
+## Tickets
+[*] Fix dodgy-ness when attempting to add changes to a ticket with empty values [DONE]
+[*] Attachments, both to initial tickets and followups [DONE]
+[*] Ability to sort by ticket #, date, status, severity etc (tablesort) [DONE]
+[ ] Post commit hooks for closing/reopening tickets etc
+[ ] Add ability to create & save a filter (and then /tickets/filter/1 for example)
+[ ] Add time estimation
+[ ] Decide on what markup and/or html to allow in comments/tickets
+[ ] Email subscriptions
+[ ] Move TicketChange.attachment to a seperate Attachment model
+[ ] Be able to assign a Ticket to a user.
+
+## Search
+[ ] Search in changesets
+[ ] Search in tickets
+
+### "Builder" (continous integration of builds)
+writeme
